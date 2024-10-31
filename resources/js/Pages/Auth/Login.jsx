@@ -12,7 +12,6 @@ export default function Login({ status, canResetPassword }) {
         password: '',
         remember: false,
     });
-
     const submit = (e) => {
         e.preventDefault();
 
@@ -33,7 +32,7 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Nis" />
+                    <InputLabel htmlFor="nis" value="Nis" />
 
                     <TextInput
                         id="nis"
