@@ -14,14 +14,21 @@ Route::get('/', function () {
     ]);
 })->name('beranda');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+    Route::get('/tagihan-ppdb', function () {
+        return Inertia::render('TagihanPpdb');
+    })->name('tagihan-ppdb');
+    Route::get('/tagihan-spp', function () {
+        return Inertia::render('TagihanSpp');
+    })->name('tagihan-spp');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__ . '/auth.php';

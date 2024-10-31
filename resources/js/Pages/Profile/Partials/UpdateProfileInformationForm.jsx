@@ -14,8 +14,9 @@ export default function UpdateProfileInformation({
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
-            name: user.name,
-            email: user.email,
+            nis: user.nis,
+            username: user.username,
+            no_telepon: user.no_telepon || ''
         });
 
     const submit = (e) => {
@@ -32,65 +33,61 @@ export default function UpdateProfileInformation({
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Perbarui informasi profil akun Anda.
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="nis" value="Nis" className={'text-black'} />
 
                     <TextInput
-                        id="name"
+                        id="nis"
                         className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
+                        value={data.nis}
+                        name={'nis'}
+                        onChange={(e) => setData('nis', e.target.value)}
                         required
                         isFocused
-                        autoComplete="name"
+                        autoComplete="nis"
                     />
 
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError className="mt-2" message={errors.nis} />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="username" value="Username" className={'text-black'} />
 
                     <TextInput
-                        id="email"
-                        type="email"
+                        disabled={true}
+                        id="username"
+                        type="text"
                         className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.username}
+                        name={'username'}
                         required
                         autoComplete="username"
                     />
 
-                    <InputError className="mt-2" message={errors.email} />
+                    <InputError className="mt-2" message={errors.username} />
                 </div>
 
-                {mustVerifyEmail && user.email_verified_at === null && (
-                    <div>
-                        <p className="mt-2 text-sm text-gray-800">
-                            Your email address is unverified.
-                            <Link
-                                href={route('verification.send')}
-                                method="post"
-                                as="button"
-                                className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                Click here to re-send the verification email.
-                            </Link>
-                        </p>
+                <div>
+                    <InputLabel htmlFor="no_telepon" value="Nomor Telepon" className={'text-black'} />
 
-                        {status === 'verification-link-sent' && (
-                            <div className="mt-2 text-sm font-medium text-green-600">
-                                A new verification link has been sent to your
-                                email address.
-                            </div>
-                        )}
-                    </div>
-                )}
+                    <TextInput
+                        id="no_telepon"
+                        type="text"
+                        className="mt-1 block w-full"
+                        value={data.no_telepon}
+                        name={'no_telepon'}
+                        onChange={(e) => setData('no_telepon', e.target.value)}
+                        required
+                        autoComplete="no_telepon"
+                    />
+
+                    <InputError className="mt-2" message={errors.no_telepon} />
+                </div>
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>

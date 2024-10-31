@@ -1,7 +1,7 @@
+import HeadLayout from '@/Components/HeadLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
 
-export default function Dashboard() {
+export default function Dashboard({ auth }) {
     return (
         <AuthenticatedLayout
             header={
@@ -10,13 +10,15 @@ export default function Dashboard() {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <HeadLayout title="Dashboard" />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            You're logged in!
+                            <p className={'text-lg'}><span className={'font-bold'}>Nis :</span> {auth.user.nis}</p>
+                            <p className={'text-lg'}><span className={'font-bold'}>Username :</span> {auth.user.username}</p>
+                            <p className={'text-lg'}><span className={'font-bold'}>Nomor Telepon :</span> {auth.user.no_telepon}</p>
                         </div>
                     </div>
                 </div>
