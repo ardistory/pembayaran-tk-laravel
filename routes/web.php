@@ -24,6 +24,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tagihan-spp', function () {
         return Inertia::render('TagihanSpp');
     })->name('tagihan-spp');
+    Route::get('/data-pembayaran-siswa', function () {
+        return Inertia::render('DataPembayaranSiswa');
+    })->name('data-pembayaran-siswa');
 });
 
 Route::middleware('auth')->group(function () {

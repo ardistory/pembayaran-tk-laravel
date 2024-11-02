@@ -6,13 +6,7 @@ import { PencilSimpleLine } from '@phosphor-icons/react';
 
 export default function TagihanSpp({ auth }) {
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Tagihan SPP
-                </h2>
-            }
-        >
+        <AuthenticatedLayout auth={auth}>
             <HeadLayout title="Tagihan SPP" />
 
             <div className="py-12">
