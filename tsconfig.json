@@ -1,10 +1,16 @@
 {
     "compilerOptions": {
         "jsx": "react-jsx",
+        "allowJs": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "CommonJS",
         "baseUrl": ".",
         "paths": {
             "@/*": [
-                "./resources/js/*"
+                "resources/js/*"
             ]
         }
     }
