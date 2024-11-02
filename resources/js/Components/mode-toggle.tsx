@@ -14,7 +14,7 @@ export function ModeToggle() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline">
+                <Button variant="outline" className={'w-full'}>
                     <Eclipse />
                     Choose Theme
                 </Button>

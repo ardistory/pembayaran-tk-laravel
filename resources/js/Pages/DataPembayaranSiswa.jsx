@@ -1,5 +1,6 @@
 import HeadLayout from '@/Components/HeadLayout';
 import AuthenticatedLayout from '../Layouts/AuthenticatedLayout';
+import DataPembayaranSiswaData from './DataPembayaranSiswaData';
 
 export default function DataPembayaranSiswa({ auth }) {
     return (
@@ -7,9 +8,7 @@ export default function DataPembayaranSiswa({ auth }) {
             <HeadLayout title={'Data Pembayaran Siswa'} />
 
             <AuthenticatedLayout auth={auth}>
-                <div>
-                    f
-                </div>
+                <DataPembayaranSiswaData />
             </AuthenticatedLayout >
         </>
     );
