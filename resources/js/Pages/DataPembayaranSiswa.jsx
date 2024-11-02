@@ -7,7 +7,7 @@ export default function DataPembayaranSiswa({ auth }) {
             <HeadLayout title={'Data Pembayaran Siswa'} />
 
             <AuthenticatedLayout auth={auth}>
-                <div className={'m-10'}>
+                <div>
                     f
                 </div>
             </AuthenticatedLayout >

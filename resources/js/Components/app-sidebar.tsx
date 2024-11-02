@@ -117,7 +117,7 @@ export function AppSidebar({ auth }) {
                           </CollapsibleTrigger>
                           <CollapsibleContent>
                             {menu.collapseMenu.map(collapse => (
-                              <SidebarMenuSub>
+                              <SidebarMenuSub key={collapse.link + collapse.title}>
                                 <SidebarMenuSubItem>
                                   <SidebarMenuButton>
                                     {collapse.title}

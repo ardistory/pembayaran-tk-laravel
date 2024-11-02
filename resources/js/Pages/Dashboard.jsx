@@ -14,7 +14,7 @@ export default function Dashboard({ auth }) {
         <AuthenticatedLayout auth={auth}>
             <HeadLayout title="Dashboard" />
 
-            <div className={'m-10'}>
+            <div>
                 <Card className={'mb-10'}>
                     <CardContent className={'p-5'}>
                         <p className={'text-lg'}><span className={'font-bold'}>{auth.user.is_admin ? 'Nama' : 'Nis'} :</span> {auth.user.is_admin ? auth.user.name : auth.user.nis}</p>
@@ -27,7 +27,7 @@ export default function Dashboard({ auth }) {
                     <div className={'grid grid-cols-3 gap-5'}>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>
-                                <CardTitle className={'text-gray-500'}>TOTAL SEMUA SISWA AKTIF</CardTitle>
+                                <CardTitle>TOTAL SEMUA SISWA AKTIF</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
                                     <Cube size={32} />
@@ -36,7 +36,7 @@ export default function Dashboard({ auth }) {
                         </Card>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>
-                                <CardTitle className={'text-gray-500'}>PEMBAYARAN DI VALIDASI</CardTitle>
+                                <CardTitle>PEMBAYARAN DI VALIDASI</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
                                     <Cube size={32} />
@@ -45,7 +45,7 @@ export default function Dashboard({ auth }) {
                         </Card>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>
-                                <CardTitle className={'text-gray-500'}>PEMBAYARAN LUNAS</CardTitle>
+                                <CardTitle>PEMBAYARAN LUNAS</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
                                     <Cube size={32} />
@@ -54,7 +54,7 @@ export default function Dashboard({ auth }) {
                         </Card>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>
-                                <CardTitle className={'text-gray-500'}>PEMBAYARAN MENUNGGAK</CardTitle>
+                                <CardTitle>PEMBAYARAN MENUNGGAK</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
                                     <Cube size={32} />
@@ -63,7 +63,7 @@ export default function Dashboard({ auth }) {
                         </Card>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>
-                                <CardTitle className={'text-gray-500'}>SISWA LUNAS</CardTitle>
+                                <CardTitle>SISWA LUNAS</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
                                     <Cube size={32} />
@@ -72,7 +72,7 @@ export default function Dashboard({ auth }) {
                         </Card>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>
-                                <CardTitle className={'text-gray-500'}>SISWA MENUNGGAK</CardTitle>
+                                <CardTitle>SISWA MENUNGGAK</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
                                     <Cube size={32} />
