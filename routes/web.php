@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\ItemSpp;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,11 +28,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/data-pembayaran-siswa', function () {
         return Inertia::render('DataPembayaranSiswa');
     })->name('data-pembayaran-siswa');
+    Route::get('/data-item-spp', function () {
+        return Inertia::render('DataItemSpp', [
+            'itemSpp' => ItemSpp::all()
+        ]);
+    })->name('data-item-spp');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 require __DIR__ . '/auth.php';

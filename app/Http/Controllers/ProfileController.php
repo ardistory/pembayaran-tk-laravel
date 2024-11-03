@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,15 +30,30 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $dataValidated = $request->validated();
+        $namaFoto = $dataValidated['username'] . '.' . 'jpg';
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($request->hasFile('foto')) {
+            $photoPath = $request->file('foto')->storePubliclyAs('assets/img', $namaFoto, 'public');
+            $photoUrl = Storage::url($photoPath);
+
+            $request->user()->fill([
+                'nis' => $dataValidated['nis'],
+                'username' => $dataValidated['username'],
+                'no_telepon' => $dataValidated['no_telepon'],
+                'foto' => $photoUrl ?? null
+            ]);
+        } else {
+            $request->user()->fill([
+                'nis' => $dataValidated['nis'],
+                'username' => $dataValidated['username'],
+                'no_telepon' => $dataValidated['no_telepon'],
+            ]);
         }
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('dashboard');
     }
 
     /**

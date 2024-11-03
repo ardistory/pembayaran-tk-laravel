@@ -1,6 +1,5 @@
 import HeadLayout from '@/Components/HeadLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Cube } from '@phosphor-icons/react';
 import {
     Card,
     CardDescription,
@@ -11,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { router } from '@inertiajs/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { BadgeCheck, TicketCheck, TicketX, User, UserRoundCheck, UserRoundX } from 'lucide-react';
 
 export default function Dashboard({ auth }) {
     return (
@@ -22,12 +22,12 @@ export default function Dashboard({ auth }) {
                     <CardHeader>
                         <div className={'flex items-center gap-2'}>
                             <Avatar className={'rounded-lg'}>
-                                <AvatarImage src={`/storage/assets/img/${auth.user.foto}`} />
+                                <AvatarImage src={auth.user.foto} />
                                 <AvatarFallback className="rounded-lg">PP</AvatarFallback>
                             </Avatar>
                             <div>
                                 <CardTitle>
-                                    {auth.user.name}
+                                    {auth.user.name ? auth.user.name : auth.user.username}
                                 </CardTitle>
                                 <CardDescription>
                                     {auth.user.nis}
@@ -49,7 +49,7 @@ export default function Dashboard({ auth }) {
                                 <CardTitle>TOTAL SEMUA SISWA AKTIF</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
-                                    <Cube size={32} />
+                                    <User />
                                 </CardDescription>
                             </CardHeader>
                         </Card>
@@ -58,7 +58,7 @@ export default function Dashboard({ auth }) {
                                 <CardTitle>PEMBAYARAN DI VALIDASI</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
-                                    <Cube size={32} />
+                                    <BadgeCheck />
                                 </CardDescription>
                             </CardHeader>
                         </Card>
@@ -67,7 +67,7 @@ export default function Dashboard({ auth }) {
                                 <CardTitle>PEMBAYARAN LUNAS</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
-                                    <Cube size={32} />
+                                    <TicketCheck />
                                 </CardDescription>
                             </CardHeader>
                         </Card>
@@ -76,7 +76,7 @@ export default function Dashboard({ auth }) {
                                 <CardTitle>PEMBAYARAN MENUNGGAK</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
-                                    <Cube size={32} />
+                                    <TicketX />
                                 </CardDescription>
                             </CardHeader>
                         </Card>
@@ -85,7 +85,7 @@ export default function Dashboard({ auth }) {
                                 <CardTitle>SISWA LUNAS</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
-                                    <Cube size={32} />
+                                    <UserRoundCheck />
                                 </CardDescription>
                             </CardHeader>
                         </Card>
@@ -94,7 +94,7 @@ export default function Dashboard({ auth }) {
                                 <CardTitle>SISWA MENUNGGAK</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
                                     <span className={'text-4xl font-bold'}>6</span>
-                                    <Cube size={32} />
+                                    <UserRoundX />
                                 </CardDescription>
                             </CardHeader>
                         </Card>

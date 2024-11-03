@@ -75,12 +75,8 @@ const sidebarMenuItem = [
         link: 'data-pembayaran-siswa',
       },
       {
-        title: 'Data Item PPDB',
-        link: 'data-pembayaran-siswa',
-      },
-      {
         title: 'Data Item SPP',
-        link: 'data-pembayaran-siswa',
+        link: 'data-item-spp',
       },
     ]
   },
@@ -118,8 +114,8 @@ export function AppSidebar({ auth }) {
                           <CollapsibleContent>
                             {menu.collapseMenu.map(collapse => (
                               <SidebarMenuSub key={collapse.link + collapse.title}>
-                                <SidebarMenuSubItem>
-                                  <SidebarMenuButton>
+                                <SidebarMenuSubItem onClick={() => router.visit(route(collapse.link))}>
+                                  <SidebarMenuButton isActive={route().current(collapse.link)}>
                                     {collapse.title}
                                   </SidebarMenuButton>
                                 </SidebarMenuSubItem>
