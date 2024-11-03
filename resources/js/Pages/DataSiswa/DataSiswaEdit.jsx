@@ -22,19 +22,17 @@ import { Textarea } from '@/components/ui/textarea';
 
 export default function DataSiswaEdit({ row }) {
     const { toast } = useToast();
-    const [date, setDate] = useState();
 
     const { data, setData, patch, processing, errors, recentlySuccessful } = useForm({
         name: row.getValue('name'),
         nis: row.getValue('nis'),
-        username: row.getValue('username'),
-        no_telepon: row.getValue('no_telepon'),
-        tahun_ajaran: row.getValue('tahun_ajaran'),
-        jenis_kelamin: row.getValue('jenis_kelamin'),
-        kelas: row.getValue('kelas'),
-        tanggal_lahir: row.getValue('tanggal_lahir'),
-        alamat: row.getValue('alamat'),
-        is_verified: row.getValue('is_verified'),
+        kelas: row.getValue('kelas') || '',
+        foto: row.getValue('foto') || '',
+        tahun_ajaran: row.getValue('tahun_ajaran') || '',
+        jenis_kelamin: row.getValue('jenis_kelamin') || '',
+        created_at: row.getValue('created_at') || '',
+        tanggal_lahir: row.getValue('tanggal_lahir') || '',
+        alamat: row.getValue('alamat') || '',
     });
 
     useEffect(() => {
@@ -47,8 +45,10 @@ export default function DataSiswaEdit({ row }) {
 
     function submit(e) {
         e.preventDefault();
-
-        patch(route('data-item-spp'));
+        console.log(data);
+        patch(route('data-siswa'), {
+            forceFormData: true
+        });
     }
 
     return (
@@ -89,11 +89,11 @@ export default function DataSiswaEdit({ row }) {
                                     </div>
                                     <div>
                                         <Label>Tahun Ajaran</Label>
-                                        <Input onChange={(e) => setData('tahun_ajaran', e.target.value)} />
+                                        <Input value={data.tahun_ajaran} onChange={(e) => setData('tahun_ajaran', e.target.value)} />
                                     </div>
                                     <div>
                                         <Label>Jenis Kelamin</Label>
-                                        <Select>
+                                        <Select onValueChange={(value) => setData('jenis_kelamin', value)}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Jenis Kelamin" />
                                             </SelectTrigger>
@@ -108,21 +108,21 @@ export default function DataSiswaEdit({ row }) {
                                         <Popover>
                                             <PopoverTrigger asChild>
                                                 <Button
-                                                    variant={"outline"}
+                                                    variant="outline"
                                                     className={cn(
                                                         "w-full justify-start text-left font-normal",
-                                                        !date && "text-muted-foreground"
+                                                        !data.created_at && "text-muted-foreground"
                                                     )}
                                                 >
                                                     <CalendarIcon className="mr-2 h-4 w-4" />
-                                                    {date ? format(date, "PPP") : <span>Pilih Tanggal</span>}
+                                                    {data.created_at ? format(new Date(data.created_at), "PPP") : <span>Pilih Tanggal</span>}
                                                 </Button>
                                             </PopoverTrigger>
                                             <PopoverContent className="w-auto p-0">
                                                 <Calendar
                                                     mode="single"
-                                                    selected={date}
-                                                    onSelect={() => alert(date)}
+                                                    selected={data.created_at ? new Date(data.created_at) : null}
+                                                    onSelect={(selectedDate) => setData("created_at", selectedDate)}
                                                     initialFocus
                                                 />
                                             </PopoverContent>
@@ -133,21 +133,21 @@ export default function DataSiswaEdit({ row }) {
                                         <Popover>
                                             <PopoverTrigger asChild>
                                                 <Button
-                                                    variant={"outline"}
+                                                    variant="outline"
                                                     className={cn(
                                                         "w-full justify-start text-left font-normal",
-                                                        !date && "text-muted-foreground"
+                                                        !data.tanggal_lahir && "text-muted-foreground"
                                                     )}
                                                 >
                                                     <CalendarIcon className="mr-2 h-4 w-4" />
-                                                    {date ? format(date, "PPP") : <span>Pilih Tanggal</span>}
+                                                    {data.tanggal_lahir ? format(new Date(data.tanggal_lahir), "PPP") : <span>Pilih Tanggal</span>}
                                                 </Button>
                                             </PopoverTrigger>
                                             <PopoverContent className="w-auto p-0">
                                                 <Calendar
                                                     mode="single"
-                                                    selected={date}
-                                                    onSelect={() => alert(date)}
+                                                    selected={data.tanggal_lahir ? new Date(data.tanggal_lahir) : null}
+                                                    onSelect={(selectedDate) => setData("tanggal_lahir", selectedDate)}
                                                     initialFocus
                                                 />
                                             </PopoverContent>
@@ -155,7 +155,7 @@ export default function DataSiswaEdit({ row }) {
                                     </div>
                                     <div>
                                         <Label>Alamat</Label>
-                                        <Textarea onChange={(e) => setData('tahun_ajaran', e.target.value)} />
+                                        <Textarea onChange={(e) => setData('alamat', e.target.value)} />
                                     </div>
                                     <Button type={'submit'}>
                                         Edit

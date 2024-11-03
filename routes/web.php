@@ -39,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('data-siswa');
     Route::patch('/data-siswa', function (Request $request) {
-        dd($request);
+        return json_decode($request);
     })->name('data-siswa');
     Route::get('/data-item-spp', function () {
         return Inertia::render('DataItemSpp', [

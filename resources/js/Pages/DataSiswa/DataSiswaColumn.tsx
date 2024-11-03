@@ -24,6 +24,20 @@ export type ItemDataSiswa = {
 
 export const columns: ColumnDef<ItemDataSiswa>[] = [
     {
+        accessorKey: "nis",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Nis
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+    },
+    {
         accessorKey: "name",
         header: ({ column }) => {
             return (
@@ -38,14 +52,14 @@ export const columns: ColumnDef<ItemDataSiswa>[] = [
         },
     },
     {
-        accessorKey: "nis",
+        accessorKey: "jenis_kelamin",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Nis
+                    Jenis Kelamin
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             );
