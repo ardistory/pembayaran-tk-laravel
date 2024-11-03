@@ -1,14 +1,14 @@
 import HeadLayout from '@/Components/HeadLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function DataPembayaranSiswa({ auth }) {
+export default function DataPengguna({ auth }) {
     return (
         <>
-            <HeadLayout title={'Data Pembayaran Siswa'} />
+            <HeadLayout title="DataPengguna" />
 
             <AuthenticatedLayout auth={auth}>
-                DataPembayaranSiswa
-            </AuthenticatedLayout >
+                DataPengguna
+            </AuthenticatedLayout>
         </>
     );
-}
+};

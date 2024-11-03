@@ -1,4 +1,3 @@
-import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,11 +7,12 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, progress, errors, reset } = useForm({
         nis: '',
         password: '',
-        remember: false,
+        remember: true,
     });
+
     const submit = (e) => {
         e.preventDefault();
 

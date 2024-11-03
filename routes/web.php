@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Models\ItemSpp;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/data-pembayaran-siswa', function () {
         return Inertia::render('DataPembayaranSiswa');
     })->name('data-pembayaran-siswa');
+    Route::get('/data-pengguna', function () {
+        return Inertia::render('DataPengguna');
+    })->name('data-pengguna');
+    Route::get('/data-siswa', function () {
+        return Inertia::render('DataSiswa', [
+            'dataSiswa' => User::query()->where('is_siswa', '=', 1)->get()
+        ]);
+    })->name('data-siswa');
+    Route::patch('/data-siswa', function (Request $request) {
+        dd($request);
+    })->name('data-siswa');
     Route::get('/data-item-spp', function () {
         return Inertia::render('DataItemSpp', [
             'itemSpp' => ItemSpp::all()

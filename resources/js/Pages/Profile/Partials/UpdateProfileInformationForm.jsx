@@ -44,7 +44,7 @@ export default function UpdateProfileInformation({ className = '' }) {
         <form onSubmit={submit} className={'space-y-5'}>
             <div className="grid w-full items-center gap-1.5">
                 <Label htmlFor="nis">Nis</Label>
-                <Input value={data.nis} onChange={(e) => setData('nis', e.target.value)} type="text" id="nis" placeholder="Nis" />
+                <Input value={data.nis} disabled={true} onChange={(e) => setData('nis', e.target.value)} type="text" id="nis" placeholder="Nis" />
                 <InputError message={errors.nis} />
             </div>
             <div className="grid w-full items-center gap-1.5">

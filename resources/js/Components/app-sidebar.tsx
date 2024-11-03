@@ -1,4 +1,4 @@
-import { ChevronDown, CircleDollarSign, Gauge, GraduationCap, Proportions, WalletCards } from "lucide-react";
+import { ChevronDown, FileText, Gauge, GraduationCap, UsersRound, WalletCards } from "lucide-react";
 import Logo from '@/Assets/img/logo.png';
 import {
   Sidebar,
@@ -31,7 +31,7 @@ const sidebarMenuItem = [
     title: 'Tagihan SPP',
     link: 'tagihan-spp',
     isAdminOnly: false,
-    icon: <CircleDollarSign />,
+    icon: <FileText />,
     collapse: false
   },
   {
@@ -39,6 +39,13 @@ const sidebarMenuItem = [
     link: 'data-pembayaran-siswa',
     isAdminOnly: true,
     icon: <WalletCards />,
+    collapse: false
+  },
+  {
+    title: 'Data Pengguna',
+    link: 'data-pengguna',
+    isAdminOnly: true,
+    icon: <UsersRound />,
     collapse: false
   },
   {

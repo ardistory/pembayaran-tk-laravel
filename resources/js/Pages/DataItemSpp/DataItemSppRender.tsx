@@ -1,5 +1,5 @@
 import { ItemSpp, columns } from "./DataItemSppColumn";
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "./DataTable";
 
 interface DataItemSppRenderProps {
     data: ItemSpp[];

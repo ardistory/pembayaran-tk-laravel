@@ -15,11 +15,12 @@ class AdminUsersSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nis' => 'admin',
+            'nis' => '12345',
             'name' => 'Administrator',
             'username' => 'admin',
             'is_verified' => true,
             'is_admin' => true,
+            'is_siswa' => false,
             'password' => Hash::make('123'),
         ]);
     }
