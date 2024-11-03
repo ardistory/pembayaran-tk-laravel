@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\ItemSpp;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -32,6 +33,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('DataItemSpp', [
             'itemSpp' => ItemSpp::all()
         ]);
+    })->name('data-item-spp');
+    Route::patch('/data-item-spp', function (Request $request) {
+        $itemSpp = ItemSpp::find($request['kd_spp']);
+        $itemSpp->tahun_ajaran = $request['tahun_ajaran'];
+        $itemSpp->biaya = $request['biaya'];
+        $itemSpp->status = $request['status'] == '1' ? 1 : 0;
+        $itemSpp->save();
     })->name('data-item-spp');
 });
 

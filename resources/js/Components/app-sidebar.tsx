@@ -28,13 +28,6 @@ const sidebarMenuItem = [
     collapse: false
   },
   {
-    title: 'Tagihan PPDB',
-    link: 'tagihan-ppdb',
-    isAdminOnly: false,
-    icon: <CircleDollarSign />,
-    collapse: false
-  },
-  {
     title: 'Tagihan SPP',
     link: 'tagihan-spp',
     isAdminOnly: false,
@@ -49,22 +42,6 @@ const sidebarMenuItem = [
     collapse: false
   },
   {
-    title: 'Data Laporan',
-    isAdminOnly: true,
-    icon: <Proportions />,
-    collapse: true,
-    collapseMenu: [
-      {
-        title: 'Data Siswa',
-        link: 'data-pembayaran-siswa',
-      },
-      {
-        title: 'Pembayaran Siswa',
-        link: 'data-pembayaran-siswa',
-      },
-    ]
-  },
-  {
     title: 'Data Master',
     isAdminOnly: true,
     icon: <GraduationCap />,
@@ -72,7 +49,7 @@ const sidebarMenuItem = [
     collapseMenu: [
       {
         title: 'Data Siswa',
-        link: 'data-pembayaran-siswa',
+        link: 'data-siswa',
       },
       {
         title: 'Data Item SPP',
@@ -100,7 +77,7 @@ export function AppSidebar({ auth }) {
                 (menu.isAdminOnly == auth.user.is_admin || menu.link == 'dashboard') ? (
                   <SidebarMenuItem key={menu.title}>
                     {menu.collapse ? (
-                      <Collapsible defaultOpen className="group/collapsible">
+                      <Collapsible defaultOpen>
                         <SidebarMenuItem>
                           <CollapsibleTrigger asChild>
                             <SidebarMenuButton>
