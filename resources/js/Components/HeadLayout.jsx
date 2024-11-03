@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import Logo from '@/Assets/img/logoedelweiss.png';
+import Logo from '@/Assets/img/logo.png';
 
 export default function HeadLayout({ title }) {
     return (

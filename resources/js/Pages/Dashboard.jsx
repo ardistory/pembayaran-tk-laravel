@@ -8,6 +8,9 @@ import {
     CardTitle,
     CardContent,
 } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { router } from '@inertiajs/react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function Dashboard({ auth }) {
     return (
@@ -16,10 +19,26 @@ export default function Dashboard({ auth }) {
 
             <div>
                 <Card className={'mb-10'}>
-                    <CardContent className={'p-5'}>
-                        <p className={'text-lg'}><span className={'font-bold'}>{auth.user.is_admin ? 'Nama' : 'Nis'} :</span> {auth.user.is_admin ? auth.user.name : auth.user.nis}</p>
-                        <p className={'text-lg'}><span className={'font-bold'}>Username :</span> {auth.user.username}</p>
-                        <p className={'text-lg'}><span className={'font-bold'}>Nomor Telepon :</span> {auth.user.no_telepon}</p>
+                    <CardHeader>
+                        <div className={'flex items-center gap-2'}>
+                            <Avatar className={'rounded-lg'}>
+                                <AvatarImage src={`/storage/assets/img/${auth.user.foto}`} />
+                                <AvatarFallback className="rounded-lg">PP</AvatarFallback>
+                            </Avatar>
+                            <div>
+                                <CardTitle>
+                                    {auth.user.name}
+                                </CardTitle>
+                                <CardDescription>
+                                    {auth.user.nis}
+                                </CardDescription>
+                            </div>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <Button onClick={() => router.visit(route('profile.edit'))}>
+                            Edit Profile
+                        </Button>
                     </CardContent>
                 </Card>
 

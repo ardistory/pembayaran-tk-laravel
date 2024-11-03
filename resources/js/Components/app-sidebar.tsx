@@ -1,5 +1,5 @@
 import { ChevronDown, CircleDollarSign, Gauge, GraduationCap, Proportions, WalletCards } from "lucide-react";
-import Logo from '@/Assets/img/logoedelweiss.png';
+import Logo from '@/Assets/img/logo.png';
 import {
   Sidebar,
   SidebarContent,
@@ -14,7 +14,6 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { router } from "@inertiajs/react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { ModeToggle } from "./mode-toggle";
@@ -93,7 +92,7 @@ export function AppSidebar({ auth }) {
       <SidebarHeader>
         <div className={'flex items-center gap-2 font-semibold text-2xl'}>
           <img src={Logo} className={'w-10 h-10'} />
-          SIPESED
+          SIPSPP
         </div>
       </SidebarHeader>
       <SidebarContent>

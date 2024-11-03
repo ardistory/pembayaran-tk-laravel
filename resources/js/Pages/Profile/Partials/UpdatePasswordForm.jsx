@@ -1,16 +1,15 @@
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Transition } from '@headlessui/react';
+import { useToast } from '@/hooks/use-toast';
 import { useForm } from '@inertiajs/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
-
+    const { toast } = useToast();
     const {
         data,
         setData,
@@ -24,6 +23,14 @@ export default function UpdatePasswordForm({ className = '' }) {
         password: '',
         password_confirmation: '',
     });
+
+    useEffect(() => {
+        processing ? toast({ description: 'Proses simpan' }) : '';
+    }, [processing]);
+
+    useEffect(() => {
+        recentlySuccessful ? toast({ description: 'Tersimpan' }) : '';
+    }, [recentlySuccessful]);
 
     const updatePassword = (e) => {
         e.preventDefault();
@@ -46,94 +53,25 @@ export default function UpdatePasswordForm({ className = '' }) {
     };
 
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-white">
-                    Update Password
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-600 dark:text-white">
-                    Pastikan akun Anda menggunakan kata sandi yang panjang dan acak agar tetap aman.
-                </p>
-            </header>
-
-            <form onSubmit={updatePassword} className="mt-6 space-y-6">
-                <div>
-                    <Label htmlFor="current_password">Password sekarang</Label>
-
-                    <TextInput
-                        id="current_password"
-                        ref={currentPasswordInput}
-                        value={data.current_password}
-                        onChange={(e) =>
-                            setData('current_password', e.target.value)
-                        }
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                    />
-
-                    <InputError
-                        message={errors.current_password}
-                        className="mt-2"
-                    />
-                </div>
-
-                <div>
-                    <Label htmlFor="password">Password baru</Label>
-
-                    <TextInput
-                        id="password"
-                        ref={passwordInput}
-                        value={data.password}
-                        onChange={(e) => setData('password', e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div>
-                    <InputLabel className={'text-black dark:text-white'}
-                        htmlFor="password_confirmation"
-                        value="Ulangi Password baru"
-                    />
-
-                    <TextInput
-                        id="password_confirmation"
-                        value={data.password_confirmation}
-                        onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
-                        }
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                    />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <Button disabled={processing}>Save</Button>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600 dark:text-white">
-                            Saved.
-                        </p>
-                    </Transition>
-                </div>
-            </form>
-        </section>
+        <form onSubmit={updatePassword} className="mt-6 space-y-6">
+            <div className="grid w-full items-center gap-1.5">
+                <Label htmlFor="current_password">Password sekarang</Label>
+                <Input ref={passwordInput} value={data.current_password} onChange={(e) => setData('current_password', e.target.value)} type="text" id="current_password" placeholder="Password sekarang" />
+                <InputError message={errors.current_password} />
+            </div>
+            <div className="grid w-full items-center gap-1.5">
+                <Label htmlFor="password">Password baru</Label>
+                <Input ref={currentPasswordInput} value={data.password} onChange={(e) => setData('password', e.target.value)} type="text" id="password" placeholder="Password baru" />
+                <InputError message={errors.password} />
+            </div>
+            <div className="grid w-full items-center gap-1.5">
+                <Label htmlFor="password_confirmation">Ulangi password</Label>
+                <Input value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} type="text" id="password_confirmation" placeholder="Ulangi password" />
+                <InputError message={errors.password_confirmation} />
+            </div>
+            <Button type="submit">
+                Simpan
+            </Button>
+        </form>
     );
 }

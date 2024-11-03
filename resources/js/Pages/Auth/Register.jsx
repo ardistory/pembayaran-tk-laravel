@@ -35,7 +35,7 @@ export default function Register() {
                         <div className="grid gap-4 before:w-60 before:h-60 before:rounded-full before:bg-white before:-z-10 before:absolute before:top-[50%] before:left-[50%] before:translate-x-[-50%] before:translate-y-[-50%] before:blur-[250px]">
                             <div className="grid gap-2">
                                 <Label htmlFor="nis">Nis</Label>
-                                <Input id="nis" type="text" placeholder="123456" value={data.nis} onChange={(e) => setData('nis', e.target.value)} />
+                                <Input id="nis" type="text" value={data.nis} onChange={(e) => setData('nis', e.target.value)} />
                                 <InputError message={errors.nis} />
                             </div>
                             <div className="grid gap-2">

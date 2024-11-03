@@ -1,37 +1,52 @@
-import Alert from '@/Components/Alert';
-import Card from '@/Components/Card';
 import HeadLayout from '@/Components/HeadLayout';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PencilSimpleLine } from '@phosphor-icons/react';
+
+const cards = [
+    {
+        title: 'Total Tagihan SPP',
+        error: 'Harap tunggu konfirmasi dari Admin SIPESED mengenai verifikasi data Siswa Edelweiss yang Anda daftarkan.'
+    },
+    {
+        title: 'Data Tagihan SPP',
+        error: 'Harap tunggu konfirmasi dari Admin SIPESED mengenai verifikasi data Siswa Edelweiss yang Anda daftarkan.'
+    },
+    {
+        title: 'Riwayat Pembayaran Saya',
+        error: 'Harap tunggu konfirmasi dari Admin SIPESED mengenai verifikasi data Siswa Edelweiss yang Anda daftarkan.'
+    },
+];
 
 export default function TagihanSpp({ auth }) {
     return (
-        <AuthenticatedLayout auth={auth}>
-            <HeadLayout title="Tagihan SPP" />
+        <>
+            <HeadLayout title="Tagihan PPDB" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 space-y-10">
-                            <Card title={'Total Tagihan SPP'} icon={<PencilSimpleLine size={20} />}>
-                                <Alert variant={'red'}>
-                                    Harap tunggu konfirmasi dari Admin SIPESED mengenai verifikasi data Siswa Edelweiss yang Anda daftarkan.
-                                </Alert>
-                            </Card>
-                            <Card title={'Data Tagihan SPP'} icon={<PencilSimpleLine size={20} />}>
-                                <Alert variant={'red'}>
-                                    Harap tunggu konfirmasi dari Admin SIPESED mengenai verifikasi data Siswa Edelweiss yang Anda daftarkan.
-                                </Alert>
-                            </Card>
-                            <Card title={'Riwayat Pembayaran Saya'} icon={<PencilSimpleLine size={20} />}>
-                                <Alert variant={'red'}>
-                                    Harap tunggu konfirmasi dari Admin SIPESED mengenai verifikasi data Siswa Edelweiss yang Anda daftarkan.
-                                </Alert>
-                            </Card>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </AuthenticatedLayout>
+            <AuthenticatedLayout auth={auth}>
+                <div className={'space-y-5'}>
+                    {cards.map(card => (
+                        <Card key={card.title}>
+                            <CardHeader>
+                                <CardTitle>{card.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                {auth.user.is_verified ? (
+                                    'Verified'
+                                ) : (
+                                    <>
+                                        <Alert variant={'destructive'}>
+                                            <AlertDescription>
+                                                {card.error}
+                                            </AlertDescription>
+                                        </Alert>
+                                    </>
+                                )}
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div >
+            </AuthenticatedLayout >
+        </>
     );
 }

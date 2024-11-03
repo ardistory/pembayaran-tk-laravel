@@ -1,17 +1,14 @@
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Button } from '@/components/ui/button';
-import { Transition } from '@headlessui/react';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import { useForm, usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
 
-export default function UpdateProfileInformation({
-    mustVerifyEmail,
-    status,
-    className = '',
-}) {
+export default function UpdateProfileInformation({ className = '' }) {
     const user = usePage().props.auth.user;
+    const { toast } = useToast();
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
@@ -23,89 +20,39 @@ export default function UpdateProfileInformation({
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route('profile.update'));
+        patch(route('profile.update'), {
+            preserveScroll: true
+        });
     };
 
+    useEffect(() => {
+        processing ? toast({ description: 'Proses simpan' }) : '';
+    }, [processing]);
+
+    useEffect(() => {
+        recentlySuccessful ? toast({ description: 'Tersimpan' }) : '';
+    }, [recentlySuccessful]);
+
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-white">
-                    Profile Information
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-600 dark:text-white">
-                    Perbarui informasi profil akun Anda.
-                </p>
-            </header>
-
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="nis" value="Nis" className={'text-black dark:text-white'} />
-
-                    <TextInput
-                        id="nis"
-                        className="mt-1 block w-full"
-                        value={data.nis}
-                        name={'nis'}
-                        onChange={(e) => setData('nis', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="nis"
-                    />
-
-                    <InputError className="mt-2" message={errors.nis} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="username" value="Username" className={'text-black dark:text-white'} />
-
-                    <TextInput
-                        disabled={true}
-                        id="username"
-                        type="text"
-                        className="mt-1 block w-full"
-                        value={data.username}
-                        name={'username'}
-                        required
-                        autoComplete="username"
-                    />
-
-                    <InputError className="mt-2" message={errors.username} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="no_telepon" value="Nomor Telepon" className={'text-black dark:text-white'} />
-
-                    <TextInput
-                        id="no_telepon"
-                        type="text"
-                        className="mt-1 block w-full"
-                        value={data.no_telepon}
-                        name={'no_telepon'}
-                        onChange={(e) => setData('no_telepon', e.target.value)}
-                        required
-                        autoComplete="no_telepon"
-                    />
-
-                    <InputError className="mt-2" message={errors.no_telepon} />
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <Button disabled={processing}>Save</Button>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600 dark:text-white">
-                            Saved.
-                        </p>
-                    </Transition>
-                </div>
-            </form>
-        </section>
+        <form onSubmit={submit} className={'space-y-5'}>
+            <div className="grid w-full items-center gap-1.5">
+                <Label htmlFor="nis">Nis</Label>
+                <Input value={data.nis} onChange={(e) => setData('nis', e.target.value)} type="text" id="nis" placeholder="Nis" />
+                <InputError message={errors.nis} />
+            </div>
+            <div className="grid w-full items-center gap-1.5">
+                <Label htmlFor="username">Username</Label>
+                <Input value={data.username} onChange={(e) => setData('username', e.target.value)} disabled={true} type="text" id="username" placeholder="Username" />
+                <InputError message={errors.username} />
+            </div>
+            <div className="grid w-full items-center gap-1.5">
+                <Label htmlFor="no_telepon">Nomor Telepon</Label>
+                <Input value={data.no_telepon} onChange={(e) => setData('no_telepon', e.target.value)} type="text" id="no_telepon" placeholder="Nomor Telepon" />
+                <InputError message={errors.no_telepon} />
+            </div>
+            <Button type="submit">
+                Simpan
+            </Button>
+        </form>
     );
 }

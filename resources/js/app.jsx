@@ -5,8 +5,9 @@ import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from './components/ui/toaster';
 
-const appName = 'SIPESED: Sistem Informasi Pembayaran Siswa Edelweiss';
+const appName = 'SIPSPP: Sistem Pembayaran SPP';
 
 createInertiaApp({
     title: (title) => `${title} | ${appName}`,
@@ -22,6 +23,7 @@ createInertiaApp({
             <>
                 <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
                     <App {...props} />
+                    <Toaster />
                 </ThemeProvider>
             </>
         );
