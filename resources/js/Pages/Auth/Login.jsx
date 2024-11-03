@@ -1,8 +1,9 @@
 import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
@@ -31,68 +32,39 @@ export default function Login({ status, canResetPassword }) {
             )}
 
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="nis" value="Nis" />
-
-                    <TextInput
-                        id="nis"
-                        type="text"
-                        name="nis"
-                        value={data.nis}
-                        className="mt-1 block w-full"
-                        autoComplete="nis"
-                        isFocused={true}
-                        onChange={(e) => setData('nis', e.target.value)}
-                    />
-
-                    <InputError message={errors.nis} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) =>
-                                setData('remember', e.target.checked)
-                            }
-                        />
-                        <span className="ms-2 text-sm text-white/50">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
-
-                <div className="mt-4 flex items-center justify-end gap-5">
-                    {canResetPassword && (
-                        <Link
-                            href={route('register')}
-                            className="rounded-md text-sm text-white underline hover:text-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        >
-                            Belum punya akun? daftar disini
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                </div>
+                <Card className="mx-auto max-w-sm">
+                    <CardHeader>
+                        <CardTitle className="text-2xl">Login</CardTitle>
+                        <CardDescription>
+                            Masukkan kredensial Anda di bawah ini untuk masuk ke akun Anda
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid gap-4 before:w-60 before:h-60 before:rounded-full before:bg-white before:-z-10 before:absolute before:top-[50%] before:left-[50%] before:translate-x-[-50%] before:translate-y-[-50%] before:blur-[250px]">
+                            <div className="grid gap-2">
+                                <Label htmlFor="nis">Nis</Label>
+                                <Input id="nis" type="text" placeholder="123456" onChange={(e) => setData('nis', e.target.value)} />
+                                <InputError message={errors.nis} />
+                            </div>
+                            <div className="grid gap-2">
+                                <div className="flex items-center">
+                                    <Label htmlFor="password">Password</Label>
+                                </div>
+                                <Input id="password" type="password" onChange={(e) => setData('password', e.target.value)} />
+                                <InputError message={errors.password} />
+                            </div>
+                            <Button type="submit" className="w-full">
+                                Login
+                            </Button>
+                        </div>
+                        <div className="mt-4 text-center text-sm">
+                            Belum punya akun?
+                            <Link href={route('register')} className="underline">
+                                Daftar
+                            </Link>
+                        </div>
+                    </CardContent>
+                </Card>
             </form>
         </GuestLayout>
     );

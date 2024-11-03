@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronsUpDown, CircleDollarSign, Gauge, GraduationCap, Power, Proportions, User2, WalletCards } from "lucide-react";
+import { ChevronDown, CircleDollarSign, Gauge, GraduationCap, Proportions, WalletCards } from "lucide-react";
 import Logo from '@/Assets/img/logoedelweiss.png';
 import {
   Sidebar,
@@ -18,6 +18,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { router } from "@inertiajs/react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { ModeToggle } from "./mode-toggle";
+import { NavUser } from "./nav-user";
 
 const sidebarMenuItem = [
   {
@@ -150,30 +151,7 @@ export function AppSidebar({ auth }) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <div className={'flex items-center gap-2'}>
-                    <User2 />
-                    <div className={'flex flex-col'}>
-                      <span className={'font-semibold'}>{auth.user.username}</span>
-                    </div>
-                  </div>
-                  <ChevronsUpDown className="ml-auto" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                side="top"
-                className="w-[--radix-popper-anchor-width]"
-              >
-                <DropdownMenuItem>
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.visit(route('logout'), { method: 'post' })}>
-                  <span>Sign out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <NavUser user={auth.user} />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

@@ -1,7 +1,8 @@
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
@@ -26,95 +27,48 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="nis" value="Nis" />
-
-                    <TextInput
-                        id="nis"
-                        type="text"
-                        name="nis"
-                        value={data.nis}
-                        className="mt-1 block w-full"
-                        autoComplete="nis"
-                        isFocused={true}
-                        onChange={(e) => setData('nis', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.nis} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="username" value="Username" />
-
-                    <TextInput
-                        id="username"
-                        type="text"
-                        name="username"
-                        value={data.username}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('username', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.username} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
-                        }
-                        required
-                    />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
-                </div>
-
-                <div className="mt-4 flex items-center justify-end gap-5">
-                    <Link
-                        href={route('login')}
-                        className="rounded-md text-sm text-white underline hover:text-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                        Sudah mendaftar?
-                    </Link>
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Daftar
-                    </PrimaryButton>
-                </div>
+                <Card className="mx-auto w-96">
+                    <CardHeader>
+                        <CardTitle className="text-2xl">Daftar</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid gap-4 before:w-60 before:h-60 before:rounded-full before:bg-white before:-z-10 before:absolute before:top-[50%] before:left-[50%] before:translate-x-[-50%] before:translate-y-[-50%] before:blur-[250px]">
+                            <div className="grid gap-2">
+                                <Label htmlFor="nis">Nis</Label>
+                                <Input id="nis" type="text" placeholder="123456" value={data.nis} onChange={(e) => setData('nis', e.target.value)} />
+                                <InputError message={errors.nis} />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="username">Username</Label>
+                                <Input id="username" type="text" value={data.username} onChange={(e) => setData('username', e.target.value)} />
+                                <InputError message={errors.username} />
+                            </div>
+                            <div className="grid gap-2">
+                                <div className="flex items-center">
+                                    <Label htmlFor="password">Password</Label>
+                                </div>
+                                <Input id="password" type="password" value={data.password} onChange={(e) => setData('password', e.target.value)} />
+                                <InputError message={errors.password} />
+                            </div>
+                            <div className="grid gap-2">
+                                <div className="flex items-center">
+                                    <Label htmlFor="password_confirmation">Ulangi password</Label>
+                                </div>
+                                <Input id="password_confirmation" type="password" value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} />
+                                <InputError message={errors.password} />
+                            </div>
+                            <Button type="submit" className="w-full">
+                                Daftar
+                            </Button>
+                        </div>
+                        <div className="mt-4 text-center text-sm">
+                            Sudah mendaftar?
+                            <Link href={route('login')} className="underline">
+                                Login
+                            </Link>
+                        </div>
+                    </CardContent>
+                </Card>
             </form>
         </GuestLayout>
     );

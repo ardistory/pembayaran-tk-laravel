@@ -24,7 +24,7 @@ export default function Dashboard({ auth }) {
                 </Card>
 
                 {auth.user.is_admin ? (
-                    <div className={'grid grid-cols-3 gap-5'}>
+                    <div className={'grid grid-cols-3 gap-5 mb-10'}>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>
                                 <CardTitle>TOTAL SEMUA SISWA AKTIF</CardTitle>

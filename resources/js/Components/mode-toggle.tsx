@@ -6,7 +6,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/theme-provider";
-import { Eclipse, LaptopMinimal, Moon, Sun } from "lucide-react";
+import { LaptopMinimal, Moon, Sun, SwatchBook } from "lucide-react";
 
 export function ModeToggle() {
     const { setTheme } = useTheme();
@@ -15,8 +15,7 @@ export function ModeToggle() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" className={'w-full'}>
-                    <Eclipse />
-                    Choose Theme
+                    <SwatchBook />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

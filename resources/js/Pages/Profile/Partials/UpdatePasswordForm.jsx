@@ -1,7 +1,8 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { useRef } from 'react';
@@ -47,21 +48,18 @@ export default function UpdatePasswordForm({ className = '' }) {
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">
+                <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                     Update Password
                 </h2>
 
-                <p className="mt-1 text-sm text-gray-600">
+                <p className="mt-1 text-sm text-gray-600 dark:text-white">
                     Pastikan akun Anda menggunakan kata sandi yang panjang dan acak agar tetap aman.
                 </p>
             </header>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel className={'text-black'}
-                        htmlFor="current_password"
-                        value="Password sekarang"
-                    />
+                    <Label htmlFor="current_password">Password sekarang</Label>
 
                     <TextInput
                         id="current_password"
@@ -82,7 +80,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="Password baru" className={'text-black'} />
+                    <Label htmlFor="password">Password baru</Label>
 
                     <TextInput
                         id="password"
@@ -98,7 +96,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div>
-                    <InputLabel className={'text-black'}
+                    <InputLabel className={'text-black dark:text-white'}
                         htmlFor="password_confirmation"
                         value="Ulangi Password baru"
                     />
@@ -121,7 +119,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <Button disabled={processing}>Save</Button>
 
                     <Transition
                         show={recentlySuccessful}
@@ -130,7 +128,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-white">
                             Saved.
                         </p>
                     </Transition>
