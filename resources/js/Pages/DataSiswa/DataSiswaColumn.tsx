@@ -9,6 +9,7 @@ export type ItemDataSiswa = {
     id: number;
     nis: string;
     name: string;
+    username: string;
     foto: string;
     tahun_ajaran: string;
     jenis_kelamin: string;
@@ -50,6 +51,15 @@ export const columns: ColumnDef<ItemDataSiswa>[] = [
                 </Button>
             );
         },
+    },
+    {
+        accessorKey: "username",
+        header: ({ column }) => {
+            return;
+        },
+        cell: ({ row }) => {
+            return;
+        }
     },
     {
         accessorKey: "jenis_kelamin",
@@ -113,6 +123,42 @@ export const columns: ColumnDef<ItemDataSiswa>[] = [
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             );
+        }
+    },
+    {
+        accessorKey: "tanggal_lahir",
+        header: ({ column }) => {
+            return;
+        },
+        cell: ({ row }) => {
+            return;
+        }
+    },
+    {
+        accessorKey: "alamat",
+        header: ({ column }) => {
+            return;
+        },
+        cell: ({ row }) => {
+            return;
+        }
+    },
+    {
+        accessorKey: "no_telepon",
+        header: ({ column }) => {
+            return;
+        },
+        cell: ({ row }) => {
+            return;
+        }
+    },
+    {
+        accessorKey: "created_at",
+        header: ({ column }) => {
+            return;
+        },
+        cell: ({ row }) => {
+            return;
         }
     },
     {

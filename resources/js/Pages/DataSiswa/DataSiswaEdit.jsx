@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from '@inertiajs/react';
 import { MoreHorizontal } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,16 +23,18 @@ import { Textarea } from '@/components/ui/textarea';
 export default function DataSiswaEdit({ row }) {
     const { toast } = useToast();
 
-    const { data, setData, patch, processing, errors, recentlySuccessful } = useForm({
+    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
         name: row.getValue('name'),
         nis: row.getValue('nis'),
+        username: row.getValue('username'),
         kelas: row.getValue('kelas') || '',
-        foto: row.getValue('foto') || '',
+        foto: row.getValue('foto'),
         tahun_ajaran: row.getValue('tahun_ajaran') || '',
         jenis_kelamin: row.getValue('jenis_kelamin') || '',
         created_at: row.getValue('created_at') || '',
         tanggal_lahir: row.getValue('tanggal_lahir') || '',
         alamat: row.getValue('alamat') || '',
+        no_telepon: row.getValue('no_telepon') || '',
     });
 
     useEffect(() => {
@@ -43,11 +45,14 @@ export default function DataSiswaEdit({ row }) {
         recentlySuccessful ? toast({ description: 'Tersimpan' }) : '';
     }, [recentlySuccessful]);
 
-    function submit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        console.log(data);
-        patch(route('data-siswa'), {
-            forceFormData: true
+
+        post(route('data-siswa'), {
+            forceFormData: true,
+            onSuccess: () => {
+                window.location.reload(true);
+            },
         });
     }
 
@@ -70,14 +75,18 @@ export default function DataSiswaEdit({ row }) {
                         <ScrollArea className={'md:h-[400px]'}>
                             <DialogHeader className={'dark:text-white'}>
                                 <DialogTitle>{row.getValue('name')}</DialogTitle>
-                                <form onSubmit={submit} className={'space-y-5 pt-5'}>
+                                <form onSubmit={handleSubmit} className={'space-y-5 pt-5'}>
                                     <div>
                                         <Label>Nama</Label>
-                                        <Input value={data.name} onChange={(e) => setData('nama', e.target.value)} />
+                                        <Input value={data.name} onChange={(e) => setData('name', e.target.value)} />
                                     </div>
                                     <div>
                                         <Label>Nis</Label>
                                         <Input value={data.nis} disabled={true} onChange={(e) => setData('nis', e.target.value)} />
+                                    </div>
+                                    <div>
+                                        <Label>Username</Label>
+                                        <Input value={data.username} disabled={true} onChange={(e) => setData('username', e.target.value)} />
                                     </div>
                                     <div>
                                         <Label>Kelas</Label>
@@ -154,8 +163,12 @@ export default function DataSiswaEdit({ row }) {
                                         </Popover>
                                     </div>
                                     <div>
+                                        <Label>Nomor Telepon</Label>
+                                        <Input value={data.no_telepon} onChange={(e) => setData('no_telepon', e.target.value)} />
+                                    </div>
+                                    <div>
                                         <Label>Alamat</Label>
-                                        <Textarea onChange={(e) => setData('alamat', e.target.value)} />
+                                        <Textarea value={data.alamat} onChange={(e) => setData('alamat', e.target.value)} />
                                     </div>
                                     <Button type={'submit'}>
                                         Edit
