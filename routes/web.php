@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Requests\DataPenggunaRequest;
 use App\Http\Requests\SiswaUpdateRequest;
 use App\Models\ItemSpp;
 use App\Models\User;
@@ -34,7 +35,44 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('DataPembayaranSiswa');
     })->name('data-pembayaran-siswa');
     Route::get('/data-pengguna', function () {
-        return Inertia::render('DataPengguna');
+        return Inertia::render('DataPengguna', [
+            'dataPengguna' => User::all()
+        ]);
+    })->name('data-pengguna');
+    Route::post('/data-pengguna', function (DataPenggunaRequest $request) {
+        $dataValidated = $request->validated();
+        $namaFoto = $dataValidated['username'] . '.' . 'jpg';
+        $user = User::where('username', $dataValidated['username'])->first();
+
+        if ($request->hasFile('foto')) {
+            $photoPath = $request->file('foto')->storePubliclyAs('assets/img', $namaFoto, 'public');
+            $photoUrl = Storage::url($photoPath);
+
+            $user->nis = $dataValidated['nis'];
+            $user->name = $dataValidated['name'];
+            $user->foto = $photoUrl ?? null;
+            $user->tahun_ajaran = $dataValidated['tahun_ajaran'];
+            $user->jenis_kelamin = $dataValidated['jenis_kelamin'];
+            $user->kelas = $dataValidated['kelas'];
+            $user->tanggal_lahir = $dataValidated['tanggal_lahir'];
+            $user->alamat = $dataValidated['alamat'];
+            $user->is_verified = $dataValidated['is_verified'];
+            $user->no_telepon = $dataValidated['no_telepon'];
+            $user->created_at = Carbon::parse($dataValidated['created_at'])->addDay();
+        } else {
+            $user->nis = $dataValidated['nis'];
+            $user->name = $dataValidated['name'];
+            $user->tahun_ajaran = $dataValidated['tahun_ajaran'];
+            $user->jenis_kelamin = $dataValidated['jenis_kelamin'];
+            $user->kelas = $dataValidated['kelas'];
+            $user->tanggal_lahir = $dataValidated['tanggal_lahir'];
+            $user->alamat = $dataValidated['alamat'];
+            $user->is_verified = $dataValidated['is_verified'];
+            $user->no_telepon = $dataValidated['no_telepon'];
+            $user->created_at = Carbon::parse($dataValidated['created_at'])->addDay();
+        }
+
+        $user->save();
     })->name('data-pengguna');
     Route::get('/data-siswa', function () {
         return Inertia::render('DataSiswa', [
