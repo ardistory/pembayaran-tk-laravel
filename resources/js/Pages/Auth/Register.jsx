@@ -26,7 +26,7 @@ export default function Register() {
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title="Daftar" />
 
             <ScrollArea className={'md:h-[400px] rounded-xl'}>
                 <form onSubmit={submit}>
