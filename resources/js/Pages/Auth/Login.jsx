@@ -1,4 +1,4 @@
-import InputError from '@/Components/InputError';
+import InputError from '@/components/InputError';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, progress, errors, reset } = useForm({
-        nis: '',
+        username: '',
         password: '',
         remember: true,
     });
@@ -42,9 +42,9 @@ export default function Login({ status, canResetPassword }) {
                     <CardContent>
                         <div className="grid gap-4 before:w-60 before:h-60 before:rounded-full before:bg-white before:-z-10 before:absolute before:top-[50%] before:left-[50%] before:translate-x-[-50%] before:translate-y-[-50%] before:blur-[250px]">
                             <div className="grid gap-2">
-                                <Label htmlFor="nis">Nis</Label>
-                                <Input id="nis" type="text" placeholder="123456" onChange={(e) => setData('nis', e.target.value)} />
-                                <InputError message={errors.nis} />
+                                <Label htmlFor="username">Username</Label>
+                                <Input id="username" type="text" placeholder="Username" onChange={(e) => setData('username', e.target.value)} />
+                                <InputError message={errors.username} />
                             </div>
                             <div className="grid gap-2">
                                 <div className="flex items-center">

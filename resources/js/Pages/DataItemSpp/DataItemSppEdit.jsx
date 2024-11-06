@@ -52,7 +52,7 @@ export default function DataItemSppEdit({ row }) {
                     <DialogContent>
                         <DialogHeader className={'dark:text-white'}>
                             <DialogTitle>{row.getValue('nama_item')} - {row.getValue('kd_spp')}</DialogTitle>
-                            <form onSubmit={submit} className={'space-y-5 pt-5'}>
+                            <form onSubmit={submit} className={'space-y-2 md:space-y-5 pt-5'}>
                                 <div>
                                     <Label>Tahun Ajaran</Label>
                                     <Input value={data.tahun_ajaran} onChange={(e) => setData('tahun_ajaran', e.target.value)} />

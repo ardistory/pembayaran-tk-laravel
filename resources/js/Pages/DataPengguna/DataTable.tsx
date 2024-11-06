@@ -27,6 +27,7 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import DataPenggunaAdd from "./DataPenggunaAdd";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -64,7 +65,7 @@ export function DataTable<TData, TValue>({
     return (
         <div>
             <div className={'flex items-center gap-2'}>
-                <div className="flex items-center py-4">
+                <div className="flex items-center py-4 gap-4">
                     <Input
                         placeholder="Filter Nama"
                         value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -73,6 +74,7 @@ export function DataTable<TData, TValue>({
                         }
                         className="max-w-sm"
                     />
+                    <DataPenggunaAdd />
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

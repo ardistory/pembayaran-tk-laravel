@@ -15,7 +15,7 @@ export function ModeToggle() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" className={'w-full'}>
-                    <SwatchBook />
+                    <SwatchBook />Theme
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

@@ -75,7 +75,7 @@ export default function DataSiswaEdit({ row }) {
                         <ScrollArea className={'md:h-[400px]'}>
                             <DialogHeader className={'dark:text-white'}>
                                 <DialogTitle>{row.getValue('name')}</DialogTitle>
-                                <form onSubmit={handleSubmit} className={'space-y-5 pt-5'}>
+                                <form onSubmit={handleSubmit} className={'space-y-2 md:space-y-5 pt-5'}>
                                     <div>
                                         <Label>Nama</Label>
                                         <Input value={data.name} onChange={(e) => setData('name', e.target.value)} />

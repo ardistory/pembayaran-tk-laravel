@@ -19,6 +19,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { Textarea } from '@/components/ui/textarea';
+import InputError from '@/components/InputError';
 
 export default function DataSiswaEdit({ row }) {
     const { toast } = useToast();
@@ -30,7 +31,7 @@ export default function DataSiswaEdit({ row }) {
         kelas: row.getValue('kelas') || '',
         foto: row.getValue('foto'),
         tahun_ajaran: row.getValue('tahun_ajaran') || '',
-        is_verified: row.getValue('is_verified') || '',
+        is_verified: row.getValue('is_verified'),
         jenis_kelamin: row.getValue('jenis_kelamin') || '',
         created_at: row.getValue('created_at') || '',
         tanggal_lahir: row.getValue('tanggal_lahir') || '',
@@ -55,6 +56,7 @@ export default function DataSiswaEdit({ row }) {
                 window.location.reload(true);
             },
         });
+        console.log(errors);
     }
 
     return (
@@ -76,7 +78,7 @@ export default function DataSiswaEdit({ row }) {
                         <ScrollArea className={'md:h-[400px]'}>
                             <DialogHeader className={'dark:text-white'}>
                                 <DialogTitle>{row.getValue('name')}</DialogTitle>
-                                <form onSubmit={handleSubmit} className={'space-y-5 pt-5'}>
+                                <form onSubmit={handleSubmit} className={'space-y-2 md:space-y-5 pt-5'}>
                                     <div>
                                         <Label>Nama</Label>
                                         <Input value={data.name} onChange={(e) => setData('name', e.target.value)} />
@@ -180,7 +182,7 @@ export default function DataSiswaEdit({ row }) {
                                     {!row.getValue('is_admin') ? (
                                         <div>
                                             <Label>Verifikasi</Label>
-                                            <Select defaultValue={row.getValue('is_verified') ? "1" : "0"} onValueChange={(value) => setData('is_verified', value)}>
+                                            <Select defaultValue={data.is_verified ? "1" : "0"} onValueChange={(value) => setData('is_verified', value)}>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Verifikasi" />
                                                 </SelectTrigger>
@@ -189,6 +191,7 @@ export default function DataSiswaEdit({ row }) {
                                                     <SelectItem value={"0"}>Non Verifikasi</SelectItem>
                                                 </SelectContent>
                                             </Select>
+                                            <InputError message={errors.is_verified} />
                                         </div>
                                     ) : ('')}
                                     <Button type={'submit'}>

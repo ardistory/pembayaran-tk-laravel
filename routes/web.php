@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Requests\DataPenggunaAddRequest;
 use App\Http\Requests\DataPenggunaRequest;
 use App\Http\Requests\SiswaUpdateRequest;
 use App\Models\ItemSpp;
@@ -8,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -37,6 +39,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/data-pengguna', function () {
         return Inertia::render('DataPengguna', [
             'dataPengguna' => User::all()
+        ]);
+    })->name('data-pengguna');
+    Route::patch('/data-pengguna', function (DataPenggunaAddRequest $request) {
+        $dataValidated = $request->validated();
+
+        User::create([
+            'nis' => $dataValidated['nis'] ?? '',
+            'name' => $dataValidated['name'],
+            'username' => $dataValidated['username'],
+            'password' => Hash::make($dataValidated['password']),
+            'is_admin' => $dataValidated['is_admin'],
+            'is_siswa' => !$dataValidated['is_admin'],
+            'is_verified' => $dataValidated['is_admin'],
         ]);
     })->name('data-pengguna');
     Route::post('/data-pengguna', function (DataPenggunaRequest $request) {
