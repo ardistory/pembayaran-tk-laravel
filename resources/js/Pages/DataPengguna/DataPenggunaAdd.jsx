@@ -27,6 +27,7 @@ export default function DataPenggunaAdd() {
         e.preventDefault();
 
         patch(route('data-pengguna'));
+
         reset(['nis', 'name', 'username', 'password']);
     }
 
