@@ -14,7 +14,7 @@ class DataPenggunaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nis' => ['string', 'max:255'],
+            'nis' => ['nullable'],
             'name' => ['string', 'max:255'],
             'username' => ['string'],
             'foto' => ['nullable'],

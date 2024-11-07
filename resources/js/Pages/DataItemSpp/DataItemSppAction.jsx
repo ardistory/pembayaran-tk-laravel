@@ -10,7 +10,7 @@ import { MoreHorizontal } from 'lucide-react';
 import { useEffect } from 'react';
 
 
-export default function DataItemSppEdit({ row }) {
+export default function DataItemSppAction({ row }) {
     const { toast } = useToast();
 
     const { data, setData, patch, processing, errors, recentlySuccessful } = useForm({

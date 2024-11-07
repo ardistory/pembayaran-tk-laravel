@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/popover";
 import { Textarea } from '@/components/ui/textarea';
 
-export default function DataSiswaEdit({ row }) {
+export default function DataSiswaAction({ row }) {
     const { toast } = useToast();
 
     const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -102,7 +102,7 @@ export default function DataSiswaEdit({ row }) {
                                     </div>
                                     <div>
                                         <Label>Jenis Kelamin</Label>
-                                        <Select onValueChange={(value) => setData('jenis_kelamin', value)}>
+                                        <Select defaultValue={data.jenis_kelamin} onValueChange={(value) => setData('jenis_kelamin', value)}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Jenis Kelamin" />
                                             </SelectTrigger>

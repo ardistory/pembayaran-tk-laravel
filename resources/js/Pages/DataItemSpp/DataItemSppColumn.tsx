@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import DataItemSppEdit from "./DataItemSppEdit";
+import DataItemSppAction from "./DataItemSppAction";
 
 export type ItemSpp = {
     kd_spp: string;
@@ -127,7 +127,7 @@ export const columns: ColumnDef<ItemSpp>[] = [
         id: "actions",
         cell: ({ row }) => {
             return (
-                <DataItemSppEdit row={row} />
+                <DataItemSppAction row={row} />
             );
         },
     },

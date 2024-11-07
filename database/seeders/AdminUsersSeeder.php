@@ -15,7 +15,7 @@ class AdminUsersSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nis' => '12345',
+            'nis' => '',
             'name' => 'Administrator',
             'username' => 'admin',
             'is_verified' => true,

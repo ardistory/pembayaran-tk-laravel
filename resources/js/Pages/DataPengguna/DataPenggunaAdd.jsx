@@ -26,9 +26,9 @@ export default function DataPenggunaAdd() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        patch(route('data-pengguna'));
-
-        reset(['nis', 'name', 'username', 'password']);
+        patch(route('data-pengguna'), {
+            onFinish: () => reset('nis', 'name', 'username', 'password', 'is_admin')
+        });
     }
 
     useEffect(() => {

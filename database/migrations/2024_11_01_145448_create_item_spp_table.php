@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('item_spp', function (Blueprint $table) {
             $table->string('kd_spp')->primary();
-            $table->string('nama_item');
+            $table->string('nama_item')->index();
             $table->string('tahun_ajaran');
             $table->bigInteger('biaya');
             $table->boolean('status');

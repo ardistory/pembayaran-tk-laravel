@@ -41,6 +41,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'dataPengguna' => User::all()
         ]);
     })->name('data-pengguna');
+    Route::delete('/data-pengguna', function (Request $request) {
+        User::query()->where('id', '=', $request['id'])->delete();
+    })->name('data-pengguna');
     Route::patch('/data-pengguna', function (DataPenggunaAddRequest $request) {
         $dataValidated = $request->validated();
 

@@ -20,19 +20,20 @@ import {
 } from "@/components/ui/popover";
 import { Textarea } from '@/components/ui/textarea';
 import InputError from '@/components/InputError';
+import DataPenggunaDelete from './DataPenggunaDelete';
 
-export default function DataSiswaEdit({ row }) {
+export default function DataPenggunaAction({ row }) {
     const { toast } = useToast();
 
     const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
         name: row.getValue('name'),
-        nis: row.getValue('nis'),
+        nis: row.getValue('nis') || null,
         username: row.getValue('username'),
         kelas: row.getValue('kelas') || '',
         foto: row.getValue('foto'),
         tahun_ajaran: row.getValue('tahun_ajaran') || '',
         is_verified: row.getValue('is_verified'),
-        jenis_kelamin: row.getValue('jenis_kelamin') || '',
+        jenis_kelamin: row.getValue('jenis_kelamin'),
         created_at: row.getValue('created_at') || '',
         tanggal_lahir: row.getValue('tanggal_lahir') || '',
         alamat: row.getValue('alamat') || '',
@@ -109,7 +110,7 @@ export default function DataSiswaEdit({ row }) {
                                     ) : ('')}
                                     <div>
                                         <Label>Jenis Kelamin</Label>
-                                        <Select onValueChange={(value) => setData('jenis_kelamin', value)}>
+                                        <Select defaultValue={data.jenis_kelamin} onValueChange={(value) => setData('jenis_kelamin', value)}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Jenis Kelamin" />
                                             </SelectTrigger>
@@ -202,6 +203,7 @@ export default function DataSiswaEdit({ row }) {
                         </ScrollArea>
                     </DialogContent>
                 </Dialog>
+                <DataPenggunaDelete row={row} />
             </DropdownMenuContent>
         </DropdownMenu >
     );

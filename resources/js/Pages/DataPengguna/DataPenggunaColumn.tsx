@@ -1,9 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import DataPenggunaEdit from "./DataPenggunaEdit";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import DataPenggunaAction from "./DataPenggunaAction";
 
 export type ItemDataPengguna = {
     id: number;
@@ -132,6 +132,15 @@ export const columns: ColumnDef<ItemDataPengguna>[] = [
         }
     },
     {
+        accessorKey: "id",
+        header: ({ column }) => {
+            return;
+        },
+        cell: ({ row }) => {
+            return;
+        }
+    },
+    {
         accessorKey: "tanggal_lahir",
         header: ({ column }) => {
             return;
@@ -189,7 +198,7 @@ export const columns: ColumnDef<ItemDataPengguna>[] = [
         id: "actions",
         cell: ({ row }) => {
             return (
-                <DataPenggunaEdit row={row} />
+                <DataPenggunaAction row={row} />
             );
         },
     },

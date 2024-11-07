@@ -1,9 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import DataSiswaEdit from "./DataSiswaEdit";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import DataSiswaAction from "./DataSiswaAction";
 
 export type ItemDataSiswa = {
     id: number;
@@ -165,7 +164,7 @@ export const columns: ColumnDef<ItemDataSiswa>[] = [
         id: "actions",
         cell: ({ row }) => {
             return (
-                <DataSiswaEdit row={row} />
+                <DataSiswaAction row={row} />
             );
         },
     },
