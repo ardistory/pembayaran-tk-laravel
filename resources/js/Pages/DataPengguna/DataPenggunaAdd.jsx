@@ -51,7 +51,7 @@ export default function DataPenggunaAdd() {
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <Label htmlFor="password" className="text-right">
+                        <Label htmlFor="password" className="text-right dark:text-white">
                             Apakah Admin?
                         </Label>
                         <Select defaultValue={data.is_admin ? "true" : "false"} onValueChange={value => setData('is_admin', value === "true")}>
@@ -66,26 +66,26 @@ export default function DataPenggunaAdd() {
                     </div>
                     {data.is_admin ? ('') : (
                         <div>
-                            <Label htmlFor="nis" className="text-right">
+                            <Label htmlFor="nis" className="text-right dark:text-white">
                                 Nis
                             </Label>
                             <Input value={data.nis} onChange={e => setData('nis', e.target.value)} id="nis" className="col-span-3" />
                         </div>
                     )}
                     <div>
-                        <Label htmlFor="name" className="text-right">
+                        <Label htmlFor="name" className="text-right dark:text-white">
                             Name
                         </Label>
                         <Input value={data.name} onChange={e => setData('name', e.target.value)} id="name" className="col-span-3" />
                     </div>
                     <div>
-                        <Label htmlFor="username" className="text-right">
+                        <Label htmlFor="username" className="text-right dark:text-white">
                             Username
                         </Label>
                         <Input value={data.username} onChange={e => setData('username', e.target.value)} id="username" className="col-span-3" />
                     </div>
                     <div>
-                        <Label htmlFor="password" className="text-right">
+                        <Label htmlFor="password" className="text-right dark:text-white">
                             Password
                         </Label>
                         <Input value={data.password} onChange={e => setData('password', e.target.value)} type={'password'} id="password" className="col-span-3" />

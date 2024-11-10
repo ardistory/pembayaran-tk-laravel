@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useForm } from '@inertiajs/react';
 import { MoreHorizontal } from 'lucide-react';
 import { useEffect } from 'react';
-import { format } from "date-fns";
+import { format, setDate } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -21,6 +21,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import InputError from '@/components/InputError';
 import DataPenggunaDelete from './DataPenggunaDelete';
+
 
 export default function DataPenggunaAction({ row }) {
     const { toast } = useToast();
@@ -34,11 +35,21 @@ export default function DataPenggunaAction({ row }) {
         tahun_ajaran: row.getValue('tahun_ajaran') || '',
         is_verified: row.getValue('is_verified'),
         jenis_kelamin: row.getValue('jenis_kelamin'),
-        created_at: row.getValue('created_at') || '',
+        tanggal_masuk: row.getValue('tanggal_masuk') || '',
         tanggal_lahir: row.getValue('tanggal_lahir') || '',
         alamat: row.getValue('alamat') || '',
         no_telepon: row.getValue('no_telepon') || '',
     });
+
+    function selectedDate(e, propertyName) {
+        const dateObj = new Date(e);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+
+        setData(propertyName, formattedDate);
+    }
 
     useEffect(() => {
         processing ? toast({ description: 'Proses simpan' }) : '';
@@ -57,7 +68,6 @@ export default function DataPenggunaAction({ row }) {
                 window.location.reload(true);
             },
         });
-        console.log(errors);
     }
 
     return (
@@ -129,18 +139,18 @@ export default function DataPenggunaAction({ row }) {
                                                         variant="outline"
                                                         className={cn(
                                                             "w-full justify-start text-left font-normal",
-                                                            !data.created_at && "text-muted-foreground"
+                                                            !data.tanggal_masuk && "text-muted-foreground"
                                                         )}
                                                     >
                                                         <CalendarIcon className="mr-2 h-4 w-4" />
-                                                        {data.created_at ? format(new Date(data.created_at), "PPP") : <span>Pilih Tanggal</span>}
+                                                        {data.tanggal_masuk ? format(new Date(data.tanggal_masuk), "PPP") : <span>Pilih Tanggal</span>}
                                                     </Button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="w-auto p-0">
                                                     <Calendar
                                                         mode="single"
-                                                        selected={data.created_at ? new Date(data.created_at) : null}
-                                                        onSelect={(selectedDate) => setData("created_at", selectedDate)}
+                                                        selected={data.tanggal_masuk ? new Date(data.tanggal_masuk) : null}
+                                                        onSelect={(e) => selectedDate(e, 'tanggal_masuk')}
                                                         initialFocus
                                                     />
                                                 </PopoverContent>
@@ -166,7 +176,7 @@ export default function DataPenggunaAction({ row }) {
                                                 <Calendar
                                                     mode="single"
                                                     selected={data.tanggal_lahir ? new Date(data.tanggal_lahir) : null}
-                                                    onSelect={(selectedDate) => setData("tanggal_lahir", selectedDate)}
+                                                    onSelect={(e) => selectedDate(e, 'tanggal_lahir')}
                                                     initialFocus
                                                 />
                                             </PopoverContent>

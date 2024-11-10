@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('jenis_kelamin')->nullable();
             $table->string('kelas')->nullable();
             $table->string('tanggal_lahir')->nullable();
+            $table->string('tanggal_masuk')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_telepon')->nullable();
             $table->boolean('is_verified')->default(false);
@@ -29,7 +30,6 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

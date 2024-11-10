@@ -16,7 +16,7 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nis' => ['string', 'max:255'],
+            'nis' => ['nullable'],
             'username' => ['string'],
             'no_telepon' => ['string', 'max:255', 'nullable'],
             'foto' => ['nullable']

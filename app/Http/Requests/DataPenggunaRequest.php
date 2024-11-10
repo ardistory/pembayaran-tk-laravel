@@ -25,7 +25,7 @@ class DataPenggunaRequest extends FormRequest
             'alamat' => ['string', 'nullable'],
             'is_verified' => ['boolean'],
             'no_telepon' => ['string', 'max:255', 'nullable'],
-            'created_at' => ['date', 'nullable'],
+            'tanggal_masuk' => ['string', 'nullable'],
         ];
     }
 }

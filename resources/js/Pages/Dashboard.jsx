@@ -10,27 +10,68 @@ import {
 import { Button } from '@/components/ui/button';
 import { router } from '@inertiajs/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { BadgeCheck, TicketCheck, TicketX, User, UserRoundCheck, UserRoundX } from 'lucide-react';
+import { BadgeCheck, ReceiptText, TicketCheck, TicketX, User, UserRoundCheck, UserRoundX } from 'lucide-react';
 
 export default function Dashboard({ auth }) {
+    const user = auth.user;
+
+    const userDetails = [
+        {
+            title: 'NIS',
+            value: user.nis,
+        },
+        {
+            title: 'Angkatan',
+            value: user.tahun_ajaran,
+        },
+        {
+            title: 'Tanggal Lahir',
+            value: user.tanggal_lahir,
+        },
+        {
+            title: 'Jenis Kelamin',
+            value: user.jenis_kelamin,
+        },
+        {
+            title: 'Alamat',
+            value: user.alamat,
+        },
+        {
+            title: 'Kelas',
+            value: user.kelas,
+        },
+        {
+            title: 'Tanggal Masuk',
+            value: user.tanggal_masuk,
+        },
+        {
+            title: 'Username',
+            value: user.username,
+        },
+        {
+            title: 'Nomor Telepon',
+            value: user.no_telepon,
+        },
+    ];
+
     return (
         <AuthenticatedLayout auth={auth}>
             <HeadLayout title="Dashboard" />
 
             <div>
-                <Card className={'mb-10'}>
+                <Card className={'mb-5'}>
                     <CardHeader>
                         <div className={'flex items-center gap-2'}>
                             <Avatar className={'rounded-lg'}>
-                                <AvatarImage src={auth.user.foto} />
+                                <AvatarImage src={user.foto} />
                                 <AvatarFallback className="rounded-lg">PP</AvatarFallback>
                             </Avatar>
                             <div>
                                 <CardTitle>
-                                    {auth.user.name ? auth.user.name : auth.user.username}
+                                    {user.name ? user.name : user.username}
                                 </CardTitle>
                                 <CardDescription>
-                                    {auth.user.nis}
+                                    {user.nis}
                                 </CardDescription>
                             </div>
                         </div>
@@ -42,7 +83,53 @@ export default function Dashboard({ auth }) {
                     </CardContent>
                 </Card>
 
-                {auth.user.is_admin ? (
+                {!user.is_admin ? (
+                    <div className={'grid grid-cols-3 md:grid-rows-3 gap-5 mb-10'}>
+                        <Card className={'col-span-3 md:col-span-1 md:row-span-3'}>
+                            <CardHeader>
+                                {userDetails.map(detail => (
+                                    <div key={detail.title}>
+                                        <CardTitle>{detail.title}</CardTitle>
+                                        {(detail.title == 'Tanggal Lahir' && detail.title == 'Tanggal Masuk') ? (
+                                            <CardDescription>{detail.value ?? '-'}</CardDescription>
+                                        ) : (
+                                            <CardDescription>{detail.value ?? '-'}</CardDescription>
+                                        )}
+                                    </div>
+                                ))}
+                            </CardHeader>
+                        </Card>
+                        <Card className="rounded-lg w-full col-span-3 md:col-span-2">
+                            <CardHeader>
+                                <CardTitle>TOTAL TAGIHAN SPP</CardTitle>
+                                <CardDescription className={'flex items-center justify-between'}>
+                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <ReceiptText />
+                                </CardDescription>
+                            </CardHeader>
+                        </Card>
+                        <Card className="rounded-lg w-full col-span-3 md:col-span-1">
+                            <CardHeader>
+                                <CardTitle>TAGIHAN SPP DIBAYAR</CardTitle>
+                                <CardDescription className={'flex items-center justify-between'}>
+                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <BadgeCheck />
+                                </CardDescription>
+                            </CardHeader>
+                        </Card>
+                        <Card className="rounded-lg w-full col-span-3 md:col-span-1">
+                            <CardHeader>
+                                <CardTitle>SISA TAGIHAN</CardTitle>
+                                <CardDescription className={'flex items-center justify-between'}>
+                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <TicketCheck />
+                                </CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </div>
+                ) : ('')}
+
+                {user.is_admin ? (
                     <div className={'grid grid-cols-3 gap-5 mb-10'}>
                         <Card className="rounded-lg w-full col-span-3 md:col-span-1">
                             <CardHeader>

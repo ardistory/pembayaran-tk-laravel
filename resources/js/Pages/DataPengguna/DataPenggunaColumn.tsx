@@ -19,7 +19,7 @@ export type ItemDataPengguna = {
     no_telepon: string;
     is_verified: boolean;
     is_siswa: boolean;
-    created_at: string;
+    tanggal_masuk: string;
     updated_at: string;
 };
 
@@ -159,7 +159,7 @@ export const columns: ColumnDef<ItemDataPengguna>[] = [
         }
     },
     {
-        accessorKey: "created_at",
+        accessorKey: "tanggal_masuk",
         header: ({ column }) => {
             return;
         },

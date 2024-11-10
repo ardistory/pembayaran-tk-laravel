@@ -16,7 +16,7 @@ class SiswaUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nis' => ['string', 'max:255'],
+            'nis' => ['nullable'],
             'name' => ['string', 'max:255'],
             'username' => ['string'],
             'foto' => ['nullable'],
@@ -26,7 +26,7 @@ class SiswaUpdateRequest extends FormRequest
             'tanggal_lahir' => ['string', 'nullable'],
             'alamat' => ['string', 'nullable'],
             'no_telepon' => ['string', 'max:255', 'nullable'],
-            'created_at' => ['date', 'nullable'],
+            'tanggal_masuk' => ['string', 'nullable'],
         ];
     }
 }

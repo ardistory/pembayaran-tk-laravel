@@ -6,7 +6,6 @@ use App\Http\Requests\DataPenggunaRequest;
 use App\Http\Requests\SiswaUpdateRequest;
 use App\Models\ItemSpp;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -76,7 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $user->alamat = $dataValidated['alamat'];
             $user->is_verified = $dataValidated['is_verified'];
             $user->no_telepon = $dataValidated['no_telepon'];
-            $user->created_at = Carbon::parse($dataValidated['created_at'])->addDay();
+            $user->tanggal_masuk = $dataValidated['tanggal_masuk'];
         } else {
             $user->nis = $dataValidated['nis'];
             $user->name = $dataValidated['name'];
@@ -87,7 +86,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $user->alamat = $dataValidated['alamat'];
             $user->is_verified = $dataValidated['is_verified'];
             $user->no_telepon = $dataValidated['no_telepon'];
-            $user->created_at = Carbon::parse($dataValidated['created_at'])->addDay();
+            $user->tanggal_masuk = $dataValidated['tanggal_masuk'];
         }
 
         $user->save();
@@ -115,7 +114,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $user->tanggal_lahir = $dataValidated['tanggal_lahir'];
             $user->alamat = $dataValidated['alamat'];
             $user->no_telepon = $dataValidated['no_telepon'];
-            $user->created_at = Carbon::parse($dataValidated['created_at'])->addDay();
+            $user->tanggal_masuk = $dataValidated['tanggal_masuk'];
         } else {
             $user->nis = $dataValidated['nis'];
             $user->name = $dataValidated['name'];
@@ -125,7 +124,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $user->tanggal_lahir = $dataValidated['tanggal_lahir'];
             $user->alamat = $dataValidated['alamat'];
             $user->no_telepon = $dataValidated['no_telepon'];
-            $user->created_at = Carbon::parse($dataValidated['created_at'])->addDay();
+            $user->tanggal_masuk = $dataValidated['tanggal_masuk'];
         }
 
         $user->save();

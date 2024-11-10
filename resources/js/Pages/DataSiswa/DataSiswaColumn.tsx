@@ -18,7 +18,7 @@ export type ItemDataSiswa = {
     no_telepon: string;
     is_verified: boolean;
     is_siswa: boolean;
-    created_at: string;
+    tanggal_masuk: string;
     updated_at: string;
 };
 
@@ -152,7 +152,7 @@ export const columns: ColumnDef<ItemDataSiswa>[] = [
         }
     },
     {
-        accessorKey: "created_at",
+        accessorKey: "tanggal_masuk",
         header: ({ column }) => {
             return;
         },

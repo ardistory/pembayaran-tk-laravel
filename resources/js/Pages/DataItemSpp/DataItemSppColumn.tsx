@@ -9,7 +9,7 @@ export type ItemSpp = {
     tahun_ajaran: string;
     biaya: number;
     status: boolean;
-    created_at: string;
+    tanggal_masuk: string;
     updated_at: string;
 };
 
@@ -88,10 +88,10 @@ export const columns: ColumnDef<ItemSpp>[] = [
         }
     },
     {
-        accessorKey: "created_at",
+        accessorKey: "tanggal_masuk",
         header: "Created At",
         cell: ({ row }) => {
-            const date = new Date(row.getValue('created_at'));
+            const date = new Date(row.getValue('tanggal_masuk'));
 
             const year = date.getUTCFullYear();
             const month = String(date.getUTCMonth() + 1).padStart(2, '0');
@@ -109,7 +109,7 @@ export const columns: ColumnDef<ItemSpp>[] = [
         accessorKey: "updated_at",
         header: "Updated At",
         cell: ({ row }) => {
-            const date = new Date(row.getValue('created_at'));
+            const date = new Date(row.getValue('tanggal_masuk'));
 
             const year = date.getUTCFullYear();
             const month = String(date.getUTCMonth() + 1).padStart(2, '0');
