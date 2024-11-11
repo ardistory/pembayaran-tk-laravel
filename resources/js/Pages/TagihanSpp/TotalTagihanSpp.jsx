@@ -76,7 +76,7 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBi
                                 <Terminal className="h-4 w-4" />
                                 <AlertTitle>Informasi</AlertTitle>
                                 <AlertDescription>
-                                    "Sudah Bayar" dihitung ketika sudah diverifikasi Admin
+                                    "Sudah Bayar" dihitung ketika pembayaran sudah diverifikasi Admin
                                 </AlertDescription>
                             </Alert>
                             <CardTitle>

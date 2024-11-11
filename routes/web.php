@@ -46,6 +46,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->where('is_verified', true)
             ->sum('bayar');
         $sisaTagihan = $totalBiaya - $sudahBayar;
+        $itemSppDetails = ItemSpp::with([
+            'pembayaran' => function ($query) {
+                $query->where('users_username', Auth::user()['username']);
+            }
+        ])->get();
+
+        $pembayaranDetails = $itemSppDetails->map(function ($itemSpp) {
+            return [
+                'nama_item' => $itemSpp->nama_item,
+                'biaya' => $itemSpp->biaya,
+                'pembayaran' => $itemSpp->pembayaran->map(function ($pembayaran) {
+                    return [
+                        'biaya' => $pembayaran->biaya,
+                        'bayar' => $pembayaran->bayar,
+                        'sisa_bayar' => $pembayaran->sisa_bayar,
+                        'bukti_bayar' => $pembayaran->bukti_bayar,
+                        'status_pembayaran' => $pembayaran->status_pembayaran,
+                        'is_verified' => $pembayaran->is_verified,
+                        'created_at' => $pembayaran->created_at,
+                    ];
+                })
+            ];
+        });
 
         return Inertia::render('TagihanSpp', [
             'pembayaranUser' => $pembayaranUser,
@@ -53,6 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'totalBiaya' => $totalBiaya,
             'sudahBayar' => $sudahBayar,
             'sisaTagihan' => $sisaTagihan,
+            'pembayaranDetails' => $pembayaranDetails
         ]);
     })->name('tagihan-spp');
     Route::post('/tagihan-spp', function (Request $request) {
