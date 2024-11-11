@@ -5,12 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, progress, errors, reset } = useForm({
         username: '',
         password: '',
-        remember: true,
+        remember: false,
     });
 
     const submit = (e) => {
@@ -52,6 +53,15 @@ export default function Login({ status, canResetPassword }) {
                                 </div>
                                 <Input id="password" type="password" onChange={(e) => setData('password', e.target.value)} />
                                 <InputError message={errors.password} />
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Checkbox onCheckedChange={(checked) => setData('remember', checked)} id="ingat_saya" />
+                                <label
+                                    htmlFor="ingat_saya"
+                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                    Ingat saya
+                                </label>
                             </div>
                             <Button type="submit" className="w-full">
                                 Login

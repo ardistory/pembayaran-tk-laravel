@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { router } from '@inertiajs/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BadgeCheck, ReceiptText, TicketCheck, TicketX, User, UserRoundCheck, UserRoundX } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function Dashboard({ auth }) {
     const user = auth.user;
@@ -83,7 +84,7 @@ export default function Dashboard({ auth }) {
                     </CardContent>
                 </Card>
 
-                {!user.is_admin ? (
+                {!user.is_admin && user.is_verified ? (
                     <div className={'grid grid-cols-3 md:grid-rows-3 gap-5 mb-10'}>
                         <Card className={'col-span-3 md:col-span-1 md:row-span-3'}>
                             <CardHeader>
@@ -108,7 +109,7 @@ export default function Dashboard({ auth }) {
                                 </CardDescription>
                             </CardHeader>
                         </Card>
-                        <Card className="rounded-lg w-full col-span-3 md:col-span-1">
+                        <Card className="rounded-lg w-full col-span-3 md:col-span-2">
                             <CardHeader>
                                 <CardTitle>TAGIHAN SPP DIBAYAR</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
@@ -117,7 +118,7 @@ export default function Dashboard({ auth }) {
                                 </CardDescription>
                             </CardHeader>
                         </Card>
-                        <Card className="rounded-lg w-full col-span-3 md:col-span-1">
+                        <Card className="rounded-lg w-full col-span-3 md:col-span-2">
                             <CardHeader>
                                 <CardTitle>SISA TAGIHAN</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>

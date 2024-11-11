@@ -5,9 +5,11 @@ use App\Http\Requests\DataPenggunaAddRequest;
 use App\Http\Requests\DataPenggunaRequest;
 use App\Http\Requests\SiswaUpdateRequest;
 use App\Models\ItemSpp;
+use App\Models\Pembayaran;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -26,11 +28,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/tagihan-ppdb', function () {
-        return Inertia::render('TagihanPpdb');
-    })->name('tagihan-ppdb');
     Route::get('/tagihan-spp', function () {
-        return Inertia::render('TagihanSpp');
+        $pembayaranUser = Pembayaran::query()->where('users_username', '=', Auth::user()['username'])->get();
+        $itemSpp = ItemSpp::all();
+
+        return Inertia::render('TagihanSpp', [
+            'pembayaranUser' => $pembayaranUser,
+            'itemSpp' => $itemSpp
+        ]);
+    })->name('tagihan-spp');
+    Route::post('/tagihan-spp', function (Request $request) {
+        $namaFoto = $request['username'] . "-" . $request['kd_spp'] . "-" . rand(0, 99999) . '.' . 'jpg';
+        $photoPath = $request->file('bukti_bayar')->storePubliclyAs('pembayaran/img', $namaFoto, 'public');
+        $photoUrl = Storage::url($photoPath);
+
+        $itemSpp = ItemSpp::query()->where('kd_spp', '=', $request['kd_spp'])->first();
+        $biaya = $itemSpp['biaya'];
+
+        $sisaBayar = ($biaya - $request['bayar'] === 0) ? 0 : $biaya - $request['bayar'];
+
+        Pembayaran::create([
+            'users_username' => $request['username'],
+            'item_spp_kd_spp' => $request['kd_spp'],
+            'bayar' => $request['bayar'],
+            'biaya' => $biaya,
+            'sisa_bayar' => $sisaBayar,
+            'bukti_bayar' => $photoUrl,
+            'status_pembayaran' => ($sisaBayar === 0) ? 'lunas' : 'diangsur',
+            'is_verified' => false,
+        ]);
     })->name('tagihan-spp');
     Route::get('/data-pembayaran-siswa', function () {
         return Inertia::render('DataPembayaranSiswa');

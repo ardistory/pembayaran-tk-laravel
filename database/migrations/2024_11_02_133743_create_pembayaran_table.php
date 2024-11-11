@@ -14,15 +14,15 @@ return new class extends Migration {
             $table->id();
             $table->string('users_username');
             $table->string('item_spp_kd_spp');
-            $table->string('item_spp_nama_item');
             $table->bigInteger('biaya');
             $table->bigInteger('bayar');
             $table->bigInteger('sisa_bayar');
+            $table->string('bukti_bayar');
             $table->string('status_pembayaran');
+            $table->boolean('is_verified');
             $table->timestamps();
 
             $table->foreign('users_username')->on('users')->references('username')->onDelete('cascade');
-            $table->foreign('item_spp_nama_item')->on('item_spp')->references('nama_item');
         });
     }
 
