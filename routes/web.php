@@ -26,40 +26,123 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        $totalBiaya = ItemSpp::sum('biaya');
+        $sudahBayar = Pembayaran::where('users_username', Auth::user()['username'])
+            ->where('is_verified', true)
+            ->sum('bayar');
+        $sisaTagihan = $totalBiaya - $sudahBayar;
+
+        return Inertia::render('Dashboard', [
+            'totalBiaya' => $totalBiaya,
+            'sudahBayar' => $sudahBayar,
+            'sisaTagihan' => $sisaTagihan
+        ]);
     })->name('dashboard');
     Route::get('/tagihan-spp', function () {
         $pembayaranUser = Pembayaran::query()->where('users_username', '=', Auth::user()['username'])->get();
         $itemSpp = ItemSpp::all();
+        $totalBiaya = ItemSpp::sum('biaya');
+        $sudahBayar = Pembayaran::where('users_username', Auth::user()['username'])
+            ->where('is_verified', true)
+            ->sum('bayar');
+        $sisaTagihan = $totalBiaya - $sudahBayar;
 
         return Inertia::render('TagihanSpp', [
             'pembayaranUser' => $pembayaranUser,
-            'itemSpp' => $itemSpp
+            'itemSpp' => $itemSpp,
+            'totalBiaya' => $totalBiaya,
+            'sudahBayar' => $sudahBayar,
+            'sisaTagihan' => $sisaTagihan,
         ]);
     })->name('tagihan-spp');
     Route::post('/tagihan-spp', function (Request $request) {
-        $namaFoto = $request['username'] . "-" . $request['kd_spp'] . "-" . rand(0, 99999) . '.' . 'jpg';
-        $photoPath = $request->file('bukti_bayar')->storePubliclyAs('pembayaran/img', $namaFoto, 'public');
+        $request->validate([
+            'username' => 'required|exists:users,username',
+            'kd_spp' => 'required|exists:item_spp,kd_spp',
+            'bayar' => 'required|numeric|min:1',
+            'bukti_bayar' => 'required|image|mimes:jpeg,png,jpg|max:2048' // validasi file bukti bayar
+        ]);
+
+        $username = $request->input('username');
+        $kd_spp = $request->input('kd_spp');
+        $bayar = $request->input('bayar');
+        $bukti_bayar = $request->file('bukti_bayar');
+
+        $namaFoto = $username . "-" . $kd_spp . "-" . rand(0, 99999) . '.' . 'jpg';
+        $photoPath = $bukti_bayar->storePubliclyAs('pembayaran/img', $namaFoto, 'public');
         $photoUrl = Storage::url($photoPath);
 
-        $itemSpp = ItemSpp::query()->where('kd_spp', '=', $request['kd_spp'])->first();
-        $biaya = $itemSpp['biaya'];
+        $itemSpp = ItemSpp::where('kd_spp', $kd_spp)->first();
+        if (!$itemSpp) {
+            return response(status: 404);
+        }
 
-        $sisaBayar = ($biaya - $request['bayar'] === 0) ? 0 : $biaya - $request['bayar'];
+        $pembayaran = Pembayaran::where('users_username', $username)
+            ->where('item_spp_kd_spp', $kd_spp)
+            ->first();
 
-        Pembayaran::create([
-            'users_username' => $request['username'],
-            'item_spp_kd_spp' => $request['kd_spp'],
-            'bayar' => $request['bayar'],
-            'biaya' => $biaya,
-            'sisa_bayar' => $sisaBayar,
-            'bukti_bayar' => $photoUrl,
-            'status_pembayaran' => ($sisaBayar === 0) ? 'lunas' : 'diangsur',
-            'is_verified' => false,
-        ]);
+        $pembayaran ? $totalBayar = $pembayaran->bayar + $bayar : $totalBayar = $bayar;
+
+        if ($totalBayar > $itemSpp->biaya) {
+            return 0;
+        }
+
+        if ($pembayaran) {
+            $pembayaran->bayar += $bayar;
+            $pembayaran->sisa_bayar = $itemSpp->biaya - $pembayaran->bayar;
+            $pembayaran->bukti_bayar = $photoUrl;
+
+            if ($pembayaran->sisa_bayar <= 0) {
+                $pembayaran->sisa_bayar = 0;
+                $pembayaran->status_pembayaran = 'lunas';
+            } else {
+                $pembayaran->status_pembayaran = 'diangsur';
+            }
+
+            $pembayaran->save();
+        } else {
+            $sisa_bayar = $itemSpp->biaya - $bayar;
+            $status_pembayaran = $sisa_bayar <= 0 ? 'lunas' : 'diangsur';
+
+            Pembayaran::create([
+                'users_username' => $username,
+                'item_spp_kd_spp' => $kd_spp,
+                'bayar' => $bayar,
+                'biaya' => $itemSpp->biaya,
+                'sisa_bayar' => $sisa_bayar,
+                'bukti_bayar' => $photoUrl,
+                'status_pembayaran' => $status_pembayaran,
+                'is_verified' => false,
+            ]);
+        }
+
+        return response(status: 200);
     })->name('tagihan-spp');
     Route::get('/data-pembayaran-siswa', function () {
-        return Inertia::render('DataPembayaranSiswa');
+        $pembayaranDetails = Pembayaran::query()->join('item_spp', 'pembayaran.item_spp_kd_spp', '=', 'item_spp.kd_spp')
+            ->join('users', 'pembayaran.users_username', '=', 'users.username')
+            ->select(
+                'item_spp.nama_item',
+                'users.name as user_name',
+                'users.tahun_ajaran',
+                'pembayaran.id as pembayaran_id',
+                'pembayaran.biaya',
+                'pembayaran.bayar',
+                'pembayaran.sisa_bayar',
+                'pembayaran.bukti_bayar',
+                'pembayaran.status_pembayaran',
+                'pembayaran.is_verified',
+                'pembayaran.created_at'
+            )
+            ->get();
+        return Inertia::render('DataPembayaranSiswa', [
+            'pembayaranDetails' => $pembayaranDetails
+        ]);
+    })->name('data-pembayaran-siswa');
+    Route::patch('/data-pembayaran-siswa', function (Request $request) {
+        Pembayaran::query()->where('id', $request['pembayaran_id'])->update([
+            'is_verified' => $request['is_verified']
+        ]);
     })->name('data-pembayaran-siswa');
     Route::get('/data-pengguna', function () {
         return Inertia::render('DataPengguna', [

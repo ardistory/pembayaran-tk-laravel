@@ -31,8 +31,8 @@ import {
 import { useEffect } from 'react';
 import { toast } from '@/hooks/use-toast';
 
-export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser }) {
-    const { setData, post, reset, recentlySuccessful } = useForm({
+export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBiaya, sudahBayar, sisaTagihan }) {
+    const { data, setData, post, reset, recentlySuccessful } = useForm({
         username: auth.user.username,
         kd_spp: '',
         bayar: 0,
@@ -49,7 +49,7 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-
+        console.log(data);
         post(route('tagihan-spp'), {
             preserveScroll: true
         });
@@ -72,23 +72,30 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser }) {
                 {auth.user.is_verified ? (
                     <Card>
                         <CardHeader>
+                            <Alert className={'mb-5'}>
+                                <Terminal className="h-4 w-4" />
+                                <AlertTitle>Informasi</AlertTitle>
+                                <AlertDescription>
+                                    "Sudah Bayar" dihitung ketika sudah diverifikasi Admin
+                                </AlertDescription>
+                            </Alert>
                             <CardTitle>
                                 Total
                             </CardTitle>
                             <CardDescription>
-                                <span>Rp.2.400.000</span>
+                                <span>{formatRupiah(totalBiaya)}</span>
                             </CardDescription>
                             <CardTitle>
                                 Sudah Bayar
                             </CardTitle>
                             <CardDescription>
-                                <span>Rp.150.000</span>
+                                <span>{formatRupiah(sudahBayar)}</span>
                             </CardDescription>
                             <CardTitle>
                                 Sisa Tagihan
                             </CardTitle>
                             <CardDescription>
-                                <span>Rp.2.250.000</span>
+                                <span>{formatRupiah(sisaTagihan)}</span>
                             </CardDescription>
                         </CardHeader>
                         <CardFooter>
@@ -111,14 +118,22 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser }) {
                                                         <SelectValue placeholder="Item SPP" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        <SelectGroup className={'max-h-52'}>
+                                                        <SelectGroup>
                                                             <SelectLabel>Item SPP</SelectLabel>
                                                             {itemSpp.map(spp => {
                                                                 const pembayaran = pembayaranUser.find(p => p.item_spp_kd_spp === spp.kd_spp);
                                                                 const sisa = pembayaran ? pembayaran.sisa_bayar : 'Belum Di Bayar';
+                                                                const statusPembayaran = pembayaran
+                                                                    ? (sisa === 0
+                                                                        ? 'Lunas'
+                                                                        : 'Sisa ' + formatRupiah(sisa)
+                                                                    ) + (pembayaran.is_verified ? '' : ' - Menunggu Verifikasi Admin')
+                                                                    : 'Belum Di Bayar';
 
                                                                 return (
-                                                                    <SelectItem key={spp.kd_spp} value={spp.kd_spp}>{spp.nama_item} - {formatRupiah(spp.biaya)} - {(sisa === 0) ? 'Lunas' : (sisa === 'Belum Di Bayar') ? 'Belum Di Bayar' : 'Sisa: ' + formatRupiah(sisa)}</SelectItem>
+                                                                    <SelectItem key={spp.kd_spp} value={spp.kd_spp}>
+                                                                        {spp.nama_item} - {formatRupiah(spp.biaya)} - {statusPembayaran}
+                                                                    </SelectItem>
                                                                 );
                                                             })}
                                                         </SelectGroup>

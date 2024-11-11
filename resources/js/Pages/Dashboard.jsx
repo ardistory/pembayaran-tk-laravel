@@ -11,9 +11,16 @@ import { Button } from '@/components/ui/button';
 import { router } from '@inertiajs/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BadgeCheck, ReceiptText, TicketCheck, TicketX, User, UserRoundCheck, UserRoundX } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 
-export default function Dashboard({ auth }) {
+function formatRupiah(amount) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    }).format(amount);
+}
+
+export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan }) {
     const user = auth.user;
 
     const userDetails = [
@@ -104,7 +111,7 @@ export default function Dashboard({ auth }) {
                             <CardHeader>
                                 <CardTitle>TOTAL TAGIHAN SPP</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{formatRupiah(totalBiaya)}</span>
                                     <ReceiptText />
                                 </CardDescription>
                             </CardHeader>
@@ -113,7 +120,7 @@ export default function Dashboard({ auth }) {
                             <CardHeader>
                                 <CardTitle>TAGIHAN SPP DIBAYAR</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{formatRupiah(sudahBayar)}</span>
                                     <BadgeCheck />
                                 </CardDescription>
                             </CardHeader>
@@ -122,7 +129,7 @@ export default function Dashboard({ auth }) {
                             <CardHeader>
                                 <CardTitle>SISA TAGIHAN</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{formatRupiah(sisaTagihan)}</span>
                                     <TicketCheck />
                                 </CardDescription>
                             </CardHeader>

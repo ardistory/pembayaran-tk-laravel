@@ -8,9 +8,6 @@ export type ItemSpp = {
     nama_item: string;
     tahun_ajaran: string;
     biaya: number;
-    status: boolean;
-    tanggal_masuk: string;
-    updated_at: string;
 };
 
 export const columns: ColumnDef<ItemSpp>[] = [
@@ -69,59 +66,6 @@ export const columns: ColumnDef<ItemSpp>[] = [
                 </Button>
             );
         },
-    },
-    {
-        accessorKey: "status",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Status
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => {
-            return row.getValue('status') ? 'Aktif' : 'Nonaktif';
-        }
-    },
-    {
-        accessorKey: "tanggal_masuk",
-        header: "Created At",
-        cell: ({ row }) => {
-            const date = new Date(row.getValue('tanggal_masuk'));
-
-            const year = date.getUTCFullYear();
-            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-            const day = String(date.getUTCDate()).padStart(2, '0');
-            const hours = String(date.getUTCHours()).padStart(2, '0');
-            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-
-            const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-
-            return formattedDate;
-        }
-    },
-    {
-        accessorKey: "updated_at",
-        header: "Updated At",
-        cell: ({ row }) => {
-            const date = new Date(row.getValue('tanggal_masuk'));
-
-            const year = date.getUTCFullYear();
-            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-            const day = String(date.getUTCDate()).padStart(2, '0');
-            const hours = String(date.getUTCHours()).padStart(2, '0');
-            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-
-            const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-
-            return formattedDate;
-        }
     },
     {
         id: "actions",
