@@ -20,7 +20,17 @@ function formatRupiah(amount) {
     }).format(amount);
 }
 
-export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan }) {
+export default function Dashboard({
+    auth,
+    totalBiaya,
+    sudahBayar,
+    sisaTagihan,
+    totalSiswaAktif,
+    pembayaranDiValidasi,
+    pembayaranLunas,
+    pembayaranMenunggak,
+    siswaLunas,
+    siswaMenunggak, }) {
     const user = auth.user;
 
     const userDetails = [
@@ -143,7 +153,7 @@ export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan })
                             <CardHeader>
                                 <CardTitle>TOTAL SEMUA SISWA AKTIF</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{totalSiswaAktif}</span>
                                     <User />
                                 </CardDescription>
                             </CardHeader>
@@ -152,7 +162,7 @@ export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan })
                             <CardHeader>
                                 <CardTitle>PEMBAYARAN DI VALIDASI</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{pembayaranDiValidasi}</span>
                                     <BadgeCheck />
                                 </CardDescription>
                             </CardHeader>
@@ -161,7 +171,7 @@ export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan })
                             <CardHeader>
                                 <CardTitle>PEMBAYARAN LUNAS</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{pembayaranLunas}</span>
                                     <TicketCheck />
                                 </CardDescription>
                             </CardHeader>
@@ -170,7 +180,7 @@ export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan })
                             <CardHeader>
                                 <CardTitle>PEMBAYARAN MENUNGGAK</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{pembayaranMenunggak}</span>
                                     <TicketX />
                                 </CardDescription>
                             </CardHeader>
@@ -179,7 +189,7 @@ export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan })
                             <CardHeader>
                                 <CardTitle>SISWA LUNAS</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{siswaLunas}</span>
                                     <UserRoundCheck />
                                 </CardDescription>
                             </CardHeader>
@@ -188,7 +198,7 @@ export default function Dashboard({ auth, totalBiaya, sudahBayar, sisaTagihan })
                             <CardHeader>
                                 <CardTitle>SISWA MENUNGGAK</CardTitle>
                                 <CardDescription className={'flex items-center justify-between'}>
-                                    <span className={'text-4xl font-bold'}>6</span>
+                                    <span className={'text-4xl font-bold'}>{siswaMenunggak}</span>
                                     <UserRoundX />
                                 </CardDescription>
                             </CardHeader>

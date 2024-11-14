@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -31,11 +32,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->where('is_verified', true)
             ->sum('bayar');
         $sisaTagihan = $totalBiaya - $sudahBayar;
+        $totalSiswaAktif = User::query()->where('is_siswa', true)->get();
+        $pembayaranDiValidasi = Pembayaran::query()->where('is_verified', true)->get();
+        $pembayaranLunas = Pembayaran::query()->where('status_pembayaran', 'lunas')->get();
+        $pembayaranMenunggak = Pembayaran::query()->where('status_pembayaran', 'diangsur')->get();
+        $siswaLunas = Pembayaran::query()->select('users_username', DB::raw('COUNT(*) as total_lunas'))
+            ->where('status_pembayaran', 'lunas')
+            ->groupBy('users_username')
+            ->get();
+        $siswaMenunggak = Pembayaran::query()->select('users_username', DB::raw('COUNT(*) as total_menunggak'))
+            ->where('status_pembayaran', '=', 'diangsur')
+            ->groupBy('users_username')
+            ->get();
 
         return Inertia::render('Dashboard', [
             'totalBiaya' => $totalBiaya,
             'sudahBayar' => $sudahBayar,
-            'sisaTagihan' => $sisaTagihan
+            'sisaTagihan' => $sisaTagihan,
+            'totalSiswaAktif' => count($totalSiswaAktif),
+            'pembayaranDiValidasi' => count($pembayaranDiValidasi),
+            'pembayaranLunas' => count($pembayaranLunas),
+            'pembayaranMenunggak' => count($pembayaranMenunggak),
+            'siswaLunas' => count($siswaLunas),
+            'siswaMenunggak' => count($siswaMenunggak),
         ]);
     })->name('dashboard');
     Route::get('/tagihan-spp', function () {
