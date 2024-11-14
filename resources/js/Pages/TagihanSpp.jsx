@@ -5,7 +5,7 @@ import RiwayatPembayaranSaya from './TagihanSpp/RiwayatPembayaranSaya';
 import DataTagihanSppRender from './TagihanSpp/DataTagihanSpp/DataTagihanSppRender';
 import DataTagihanSpp from './TagihanSpp/DataTagihanSpp/DataTagihanSpp';
 
-export default function TagihanSpp({ auth, itemSpp, pembayaranUser, totalBiaya, sudahBayar, sisaTagihan, pembayaranDetails }) {
+export default function TagihanSpp({ auth, itemSpp, pembayaranUser, totalBiaya, sudahBayar, sisaTagihan, pembayaranDetails, riwayatPembayaranSaya }) {
     return (
         <>
             <HeadLayout title="Tagihan PPDB" />
@@ -14,7 +14,7 @@ export default function TagihanSpp({ auth, itemSpp, pembayaranUser, totalBiaya, 
                 <div className={'space-y-5 mb-10'}>
                     <TotalTagihanSpp auth={auth} itemSpp={itemSpp} pembayaranUser={pembayaranUser} totalBiaya={totalBiaya} sudahBayar={sudahBayar} sisaTagihan={sisaTagihan} />
                     <DataTagihanSpp auth={auth} pembayaranDetails={pembayaranDetails} />
-                    <RiwayatPembayaranSaya auth={auth} />
+                    <RiwayatPembayaranSaya auth={auth} riwayatPembayaranSaya={riwayatPembayaranSaya} />
                 </div >
             </AuthenticatedLayout >
         </>

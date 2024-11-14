@@ -70,13 +70,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ];
         });
 
+        $riwayatPembayaranSaya = Pembayaran::join('item_spp', 'pembayaran.item_spp_kd_spp', '=', 'item_spp.kd_spp')
+            ->select(
+                'item_spp.nama_item',
+                'pembayaran.biaya',
+                'pembayaran.bayar',
+                'pembayaran.bukti_bayar',
+                'pembayaran.status_pembayaran',
+                'pembayaran.created_at',
+            )
+            ->where('pembayaran.users_username', Auth::user()['username'])
+            ->get();
+
         return Inertia::render('TagihanSpp', [
             'pembayaranUser' => $pembayaranUser,
             'itemSpp' => $itemSpp,
             'totalBiaya' => $totalBiaya,
             'sudahBayar' => $sudahBayar,
             'sisaTagihan' => $sisaTagihan,
-            'pembayaranDetails' => $pembayaranDetails
+            'pembayaranDetails' => $pembayaranDetails,
+            'riwayatPembayaranSaya' => $riwayatPembayaranSaya,
         ]);
     })->name('tagihan-spp');
     Route::post('/tagihan-spp', function (Request $request) {
