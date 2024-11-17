@@ -1,4 +1,4 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
+import ApplicationLogo from '@/components/ApplicationLogo';
 import { Link } from '@inertiajs/react';
 import Hero1 from '@/Assets/img/hero1.jpg';
 import { ModeToggle } from '@/components/mode-toggle';
@@ -11,7 +11,7 @@ export default function GuestLayout({ children }) {
                 <div className={'w-full h-[13%] absolute z-20 left-0 top-0 bg-white dark:bg-black dark:text-white dark:border-b dark:border-b-white/20 px-5 md:px-20 py-5 flex justify-between items-center'}>
                     <div className={'flex items-center gap-2'}>
                         <ApplicationLogo />
-                        <p className={'text-2xl font-semibold'}>SIPESED</p>
+                        <p className={'text-2xl font-semibold'}>SIPSPP</p>
                     </div>
                     <div className={'flex items-center gap-5'}>
                         <Link href={route('beranda')} className={'hover:text-blue-500'}>Beranda</Link>

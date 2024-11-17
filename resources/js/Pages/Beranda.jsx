@@ -1,5 +1,5 @@
-import CustButton from '@/Components/CustButton';
-import HeadLayout from '@/Components/HeadLayout';
+import CustButton from '@/components/CustButton';
+import HeadLayout from '@/components/HeadLayout';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { router } from '@inertiajs/react';
 import { ArrowCircleRight } from '@phosphor-icons/react';
