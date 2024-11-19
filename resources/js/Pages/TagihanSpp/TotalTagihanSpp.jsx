@@ -28,11 +28,13 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { toast } from '@/hooks/use-toast';
 
 export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBiaya, sudahBayar, sisaTagihan }) {
-    const { data, setData, post, reset, recentlySuccessful } = useForm({
+    const inputBuktiBayar = useRef();
+
+    const { data, setData, post, recentlySuccessful } = useForm({
         username: auth.user.username,
         kd_spp: '',
         bayar: 0,
@@ -49,12 +51,15 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBi
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(data);
+
         post(route('tagihan-spp'), {
-            preserveScroll: true
+            preserveScroll: true,
+            onSuccess: () => {
+                inputBuktiBayar.current.value = '';
+                setData('bayar', 0);
+            }
         });
 
-        reset('kd_spp', 'bayar', 'bukti_bayar');
     }
 
     useEffect(() => {
@@ -103,7 +108,7 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBi
                                 <DialogTrigger asChild>
                                     <Button>Bayar SPP</Button>
                                 </DialogTrigger>
-                                <DialogContent className="sm:max-w-[425px]">
+                                <DialogContent>
                                     <DialogHeader>
                                         <DialogTitle>Bayar SPP</DialogTitle>
                                     </DialogHeader>
@@ -169,7 +174,7 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBi
                                                 <Label htmlFor="bukti_bayar" className="text-right">
                                                     Bukti Pembayaran
                                                 </Label>
-                                                <Input onChange={e => setData('bukti_bayar', e.target.files[0])} type={'file'} id="bukti_bayar" className="col-span-3" />
+                                                <Input ref={inputBuktiBayar} onChange={e => setData('bukti_bayar', e.target.files[0])} type={'file'} id="bukti_bayar" className="col-span-3" />
                                             </div>
                                         </div>
                                         <DialogFooter>

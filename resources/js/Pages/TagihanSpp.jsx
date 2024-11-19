@@ -1,4 +1,4 @@
-import HeadLayout from '@/Components/HeadLayout';
+import HeadLayout from '@/components/HeadLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import TotalTagihanSpp from './TagihanSpp/TotalTagihanSpp';
 import RiwayatPembayaranSaya from './TagihanSpp/RiwayatPembayaranSaya';

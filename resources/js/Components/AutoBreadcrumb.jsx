@@ -20,7 +20,7 @@ export default function AutoBreadcrumb() {
         <Breadcrumb>
             <BreadcrumbList>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                    <BreadcrumbLink href={route('dashboard')}>Home</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
