@@ -60,7 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
     Route::get('/tagihan-spp', function () {
         $pembayaranUser = Pembayaran::query()->where('users_username', '=', Auth::user()['username'])->get();
-        $itemSpp = ItemSpp::all();
+        $itemSpp = ItemSpp::query()->where('status', true)->get();
         $totalBiaya = ItemSpp::sum('biaya');
         $sudahBayar = Pembayaran::where('users_username', Auth::user()['username'])
             ->where('is_verified', true)
