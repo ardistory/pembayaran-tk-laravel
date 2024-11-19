@@ -1,4 +1,4 @@
-import HeadLayout from '@/Components/HeadLayout';
+import HeadLayout from '@/components/HeadLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DataPenggunaRender from './DataPengguna/DataPenggunaRender';
 

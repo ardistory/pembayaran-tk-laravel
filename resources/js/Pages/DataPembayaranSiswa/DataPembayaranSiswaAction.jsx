@@ -17,7 +17,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/ca
 export default function DataPembayaranSiswaAction({ row }) {
     const { toast } = useToast();
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
+    const { data, setData, patch, processing, recentlySuccessful } = useForm({
         pembayaran_id: row.getValue('pembayaran_id'),
         nama_item: row.getValue('nama_item'),
         user_name: row.getValue('user_name'),

@@ -20,6 +20,7 @@ function formatRupiah(amount) {
 export type ItemDataPembayaranSiswa = {
     pembayaran_id: number;
     nama_item: string;
+    nis: string;
     user_name: string;
     tahun_ajaran: string;
     biaya: number;
@@ -34,6 +35,15 @@ export type ItemDataPembayaranSiswa = {
 export const columns: ColumnDef<ItemDataPembayaranSiswa>[] = [
     {
         accessorKey: "pembayaran_id",
+        header: ({ column }) => {
+            return;
+        },
+        cell: ({ row }) => {
+            return;
+        }
+    },
+    {
+        accessorKey: "nis",
         header: ({ column }) => {
             return;
         },

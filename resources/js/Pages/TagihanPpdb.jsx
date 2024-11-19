@@ -1,4 +1,4 @@
-import HeadLayout from '@/Components/HeadLayout';
+import HeadLayout from '@/components/HeadLayout';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';

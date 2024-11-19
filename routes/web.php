@@ -185,6 +185,7 @@ Route::middleware(['auth', 'verified', OnlyAdminMiddleware::class])->group(funct
                 'item_spp.nama_item',
                 'users.name as user_name',
                 'users.tahun_ajaran',
+                'users.nis',
                 'pembayaran.id as pembayaran_id',
                 'pembayaran.biaya',
                 'pembayaran.bayar',
