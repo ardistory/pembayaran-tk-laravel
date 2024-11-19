@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FileText } from "lucide-react";
 import ExportExcel from "./ExportExcel";
+import ExportPdf from "./ExportPdf";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -76,10 +77,7 @@ export function DataTable<TData, TValue>({
                         className="max-w-sm"
                     />
                     <ExportExcel data={data} />
-                    <Button className={'bg-red-600 hover:bg-red-500'}>
-                        <FileText />
-                        Export PDF
-                    </Button>
+                    <ExportPdf data={data} />
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

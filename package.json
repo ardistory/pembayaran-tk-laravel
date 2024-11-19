@@ -50,6 +50,8 @@
         "embla-carousel-react": "^8.3.1",
         "file-saver": "^2.0.5",
         "input-otp": "^1.4.1",
+        "jspdf": "^2.5.2",
+        "jspdf-autotable": "^3.8.4",
         "lucide-react": "^0.454.0",
         "react-day-picker": "^8.10.1",
         "react-hook-form": "^7.53.1",
