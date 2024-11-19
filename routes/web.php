@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\OnlyAdminMiddleware;
 use App\Http\Requests\DataPenggunaAddRequest;
 use App\Http\Requests\DataPenggunaRequest;
 use App\Http\Requests\SiswaUpdateRequest;
@@ -111,6 +112,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'riwayatPembayaranSaya' => $riwayatPembayaranSaya,
         ]);
     })->name('tagihan-spp');
+});
+
+Route::middleware(['auth', 'verified', OnlyAdminMiddleware::class])->group(function () {
     Route::post('/tagihan-spp', function (Request $request) {
         $request->validate([
             'username' => 'required|exists:users,username',
