@@ -66,7 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->where('is_verified', true)
             ->sum('bayar');
         $sisaTagihan = $totalBiaya - $sudahBayar;
-        $itemSppDetails = ItemSpp::with([
+        $itemSppDetails = ItemSpp::where('status', 1)->with([
             'pembayaran' => function ($query) {
                 $query->where('users_username', Auth::user()['username']);
             }
@@ -112,9 +112,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'riwayatPembayaranSaya' => $riwayatPembayaranSaya,
         ]);
     })->name('tagihan-spp');
-});
-
-Route::middleware(['auth', 'verified', OnlyAdminMiddleware::class])->group(function () {
     Route::post('/tagihan-spp', function (Request $request) {
         $request->validate([
             'username' => 'required|exists:users,username',
@@ -151,6 +148,7 @@ Route::middleware(['auth', 'verified', OnlyAdminMiddleware::class])->group(funct
             $pembayaran->bayar += $bayar;
             $pembayaran->sisa_bayar = $itemSpp->biaya - $pembayaran->bayar;
             $pembayaran->bukti_bayar = $photoUrl;
+            $pembayaran->is_verified = 0;
 
             if ($pembayaran->sisa_bayar <= 0) {
                 $pembayaran->sisa_bayar = 0;
@@ -178,6 +176,9 @@ Route::middleware(['auth', 'verified', OnlyAdminMiddleware::class])->group(funct
 
         return response(status: 200);
     })->name('tagihan-spp');
+});
+
+Route::middleware(['auth', 'verified', OnlyAdminMiddleware::class])->group(function () {
     Route::get('/data-pembayaran-siswa', function () {
         $pembayaranDetails = Pembayaran::query()->join('item_spp', 'pembayaran.item_spp_kd_spp', '=', 'item_spp.kd_spp')
             ->join('users', 'pembayaran.users_username', '=', 'users.username')

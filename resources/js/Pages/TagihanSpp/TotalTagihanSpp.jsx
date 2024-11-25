@@ -57,6 +57,7 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBi
             onSuccess: () => {
                 inputBuktiBayar.current.value = '';
                 setData('bayar', 0);
+                window.location.reload();
             }
         });
 
@@ -110,12 +111,12 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBi
                                 </DialogTrigger>
                                 <DialogContent>
                                     <DialogHeader>
-                                        <DialogTitle>Bayar SPP</DialogTitle>
+                                        <DialogTitle className={'dark:text-white'}>Bayar SPP</DialogTitle>
                                     </DialogHeader>
                                     <form onSubmit={handleSubmit}>
                                         <div className="grid gap-4 py-4">
                                             <div>
-                                                <Label htmlFor="item_spp" className="text-right">
+                                                <Label htmlFor="item_spp" className="text-right dark:text-white">
                                                     Item SPP
                                                 </Label>
                                                 <Select id={'item_spp'} onValueChange={value => setData('kd_spp', value)}>
@@ -160,12 +161,12 @@ export default function TotalTagihanSpp({ auth, itemSpp, pembayaranUser, totalBi
                                                     <span className={'text-xs'}>Rp</span>
                                                     <InputOTP onChange={value => setData('bayar', parseInt(value))} maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
                                                         <InputOTPGroup>
-                                                            <InputOTPSlot index={0} />
-                                                            <InputOTPSlot index={1} />
-                                                            <InputOTPSlot index={2} />
-                                                            <InputOTPSlot index={3} />
-                                                            <InputOTPSlot index={4} />
-                                                            <InputOTPSlot index={5} />
+                                                            <InputOTPSlot className={'dark:text-white'} index={0} />
+                                                            <InputOTPSlot className={'dark:text-white'} index={1} />
+                                                            <InputOTPSlot className={'dark:text-white'} index={2} />
+                                                            <InputOTPSlot className={'dark:text-white'} index={3} />
+                                                            <InputOTPSlot className={'dark:text-white'} index={4} />
+                                                            <InputOTPSlot className={'dark:text-white'} index={5} />
                                                         </InputOTPGroup>
                                                     </InputOTP>
                                                 </div>

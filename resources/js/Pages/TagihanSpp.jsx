@@ -2,7 +2,6 @@ import HeadLayout from '@/components/HeadLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import TotalTagihanSpp from './TagihanSpp/TotalTagihanSpp';
 import RiwayatPembayaranSaya from './TagihanSpp/RiwayatPembayaranSaya';
-import DataTagihanSppRender from './TagihanSpp/DataTagihanSpp/DataTagihanSppRender';
 import DataTagihanSpp from './TagihanSpp/DataTagihanSpp/DataTagihanSpp';
 
 export default function TagihanSpp({ auth, itemSpp, pembayaranUser, totalBiaya, sudahBayar, sisaTagihan, pembayaranDetails, riwayatPembayaranSaya }) {

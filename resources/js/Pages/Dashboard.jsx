@@ -6,6 +6,7 @@ import {
     CardHeader,
     CardTitle,
     CardContent,
+    CardFooter,
 } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { router } from '@inertiajs/react';
@@ -77,28 +78,40 @@ export default function Dashboard({
             <HeadLayout title="Dashboard" />
 
             <div>
-                <Card className={'mb-5'}>
-                    <CardHeader>
-                        <div className={'flex items-center gap-2'}>
-                            <Avatar className={'rounded-lg'}>
-                                <AvatarImage src={user.foto} />
-                                <AvatarFallback className="rounded-lg">PP</AvatarFallback>
-                            </Avatar>
-                            <div>
-                                <CardTitle>
-                                    {user.name ? user.name : user.username}
-                                </CardTitle>
-                                <CardDescription>
-                                    {user.nis}
-                                </CardDescription>
+                <Card className={'mb-5 flex justify-between'}>
+                    <div>
+                        <CardHeader>
+                            <div className={'flex items-center gap-2'}>
+                                <Avatar className={'rounded-lg'}>
+                                    <AvatarImage src={user.foto} />
+                                    <AvatarFallback className="rounded-lg">PP</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <CardTitle>
+                                        {user.name ? user.name : user.username}
+                                    </CardTitle>
+                                    <CardDescription>
+                                        {user.nis}
+                                    </CardDescription>
+                                </div>
                             </div>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <Button onClick={() => router.visit(route('profile.edit'))}>
-                            Edit Profile
-                        </Button>
-                    </CardContent>
+                        </CardHeader>
+                        <CardContent>
+                            <Button onClick={() => router.visit(route('profile.edit'))}>
+                                Edit Profile
+                            </Button>
+                        </CardContent>
+                    </div>
+                    <Card className={'flex items-center m-5'}>
+                        <CardHeader>
+                            <CardTitle>BCA</CardTitle>
+                            <CardDescription>0721321323</CardDescription>
+                        </CardHeader>
+                        <CardHeader>
+                            <CardTitle>Mandiri</CardTitle>
+                            <CardDescription>213213213</CardDescription>
+                        </CardHeader>
+                    </Card>
                 </Card>
 
                 {!user.is_admin && user.is_verified ? (
