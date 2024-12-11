@@ -170,7 +170,7 @@ export const columns: ColumnDef<ItemDataPembayaranSiswa>[] = [
             );
         },
         cell: ({ row }) => {
-            return row.getValue('status_pembayaran') == "lunas" ? <Badge variant={"outline"}>Lunas</Badge> : <Badge variant={"destructive"}>Diangsur</Badge>;
+            return row.getValue('status_pembayaran') == "lunas" ? <Badge variant={"outline"}>Lunas</Badge> : <Badge variant={"destructive"}>{row.getValue('status_pembayaran')}</Badge>;
         }
     },
     {

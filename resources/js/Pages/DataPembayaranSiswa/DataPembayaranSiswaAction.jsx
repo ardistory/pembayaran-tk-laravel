@@ -13,6 +13,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 export default function DataPembayaranSiswaAction({ row }) {
     const { toast } = useToast();
@@ -28,6 +29,7 @@ export default function DataPembayaranSiswaAction({ row }) {
         bukti_bayar: row.getValue('bukti_bayar'),
         status_pembayaran: row.getValue('status_pembayaran'),
         is_verified: row.getValue('is_verified'),
+        is_rejected: false,
         created_at: row.getValue('created_at'),
     });
 
@@ -116,6 +118,18 @@ export default function DataPembayaranSiswaAction({ row }) {
                                         </CardHeader>
                                     </Card>
                                     <div>
+                                        <Label>Tolak Pembayaran?</Label>
+                                        <Select defaultValue={data.is_rejected ? "true" : "false"} onValueChange={(value) => setData('is_rejected', value === "true")}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Ingin Verifikasi Pembayaran?" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="true">Ya</SelectItem>
+                                                <SelectItem value="false">Tidak</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className={cn('', { 'hidden': data.is_rejected })}>
                                         <Label>Verifikasi Pembayaran?</Label>
                                         <Select defaultValue={data.is_verified ? "true" : "false"} onValueChange={(value) => setData('is_verified', value === "true")}>
                                             <SelectTrigger>

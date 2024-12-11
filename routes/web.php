@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        $totalBiaya = ItemSpp::sum('biaya');
+        $totalBiaya = ItemSpp::where('status', true)->sum('biaya');
         $sudahBayar = Pembayaran::where('users_username', Auth::user()['username'])
             ->where('is_verified', true)
             ->sum('bayar');
@@ -61,7 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tagihan-spp', function () {
         $pembayaranUser = Pembayaran::query()->where('users_username', '=', Auth::user()['username'])->get();
         $itemSpp = ItemSpp::query()->where('status', true)->get();
-        $totalBiaya = ItemSpp::sum('biaya');
+        $totalBiaya = ItemSpp::where('status', true)->sum('biaya');
         $sudahBayar = Pembayaran::where('users_username', Auth::user()['username'])
             ->where('is_verified', true)
             ->sum('bayar');
@@ -202,9 +202,15 @@ Route::middleware(['auth', 'verified', OnlyAdminMiddleware::class])->group(funct
         ]);
     })->name('data-pembayaran-siswa');
     Route::patch('/data-pembayaran-siswa', function (Request $request) {
-        Pembayaran::query()->where('id', $request['pembayaran_id'])->update([
-            'is_verified' => $request['is_verified']
-        ]);
+        if (!$request['is_rejected']) {
+            Pembayaran::query()->where('id', $request['pembayaran_id'])->update([
+                'is_verified' => $request['is_verified']
+            ]);
+        } else {
+            Pembayaran::query()->where('id', $request['pembayaran_id'])->update([
+                'status_pembayaran' => 'ditolak'
+            ]);
+        }
     })->name('data-pembayaran-siswa');
     Route::get('/data-pengguna', function () {
         return Inertia::render('DataPengguna', [
