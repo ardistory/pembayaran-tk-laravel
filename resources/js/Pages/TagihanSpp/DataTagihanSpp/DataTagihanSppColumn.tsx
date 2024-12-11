@@ -97,7 +97,7 @@ export const columns: ColumnDef<ItemDataTagihanSpp>[] = [
                             Status
                         </CardTitle>
                         <CardDescription>
-                            {payment.status_pembayaran == 'lunas' ? <Badge className={'inline-flex items-center gap-2'}>Lunas<Check size={10} /></Badge> : <Badge className={'inline-flex items-center gap-2'}>Diangsur<Hourglass size={10} /></Badge>}
+                            {payment.status_pembayaran == 'lunas' ? <Badge className={'inline-flex items-center gap-2'}>Lunas<Check size={10} /></Badge> : <Badge className={'inline-flex items-center gap-2'}>{payment.status_pembayaran}<Hourglass size={10} /></Badge>}
                         </CardDescription>
                     </CardHeader>
                 </Card>
